@@ -1,0 +1,1 @@
+export const GA_CLIENT_ID ='clientId'

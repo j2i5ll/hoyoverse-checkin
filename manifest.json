@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "default_locale": "en",
+  "name": "Hoyoverse Check-in",
+  "version": "3.0.10",
+  "description": "Hoyoverse Check-in",
+  "permissions": ["storage", "cookies"],
+  "host_permissions": ["*://*.hoyolab.com/"],
+  "options_page": "src/apps/front/options/index.html",
+  "background": {
+    "service_worker": "src/apps/background/index.ts"
+  },
+  "action": {
+    "default_popup": "src/apps/front/popup/index.html",
+    "default_icon": "icon32.png"
+  },
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/apps/front/content/wakeup/wakeupScript.ts"]
+    },
+    {
+      "matches": [
+        "https://act.hoyolab.com/ys/event/signin-sea-v3/index.html*",
+        "https://act.hoyolab.com/bbs/event/signin/hkrpg/index.html*",
+        "https://act.hoyolab.com/bbs/event/signin/zzz/e202406031448091.html*",
+        "https://act.hoyolab.com/bbs/event/signin-bh3/index.html*"
+      ],
+      "js": ["src/apps/front/content/tooltip/root.tsx"]
+    }
+  ]
+}
