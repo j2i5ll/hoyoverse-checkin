@@ -20,6 +20,12 @@
     "48": "icon48.png",
     "128": "icon128.png"
   },
+  "web_accessible_resources": [
+    {
+      "resources": ["src/apps/front/content/laqoos/getAccountListScript.js"],
+      "matches": ["*://*.laqoos.com/*", "*://laqoos.com/*"]
+    }
+  ],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
@@ -33,6 +39,11 @@
         "https://act.hoyolab.com/bbs/event/signin-bh3/index.html*"
       ],
       "js": ["src/apps/front/content/tooltip/root.tsx"]
+    },
+    {
+      "matches": ["*://*.laqoos.com/*", "*://laqoos.com/*"],
+      "js": ["src/apps/front/content/laqoos/injectAccountList.ts"],
+      "run_at": "document_start"
     }
   ]
 }
