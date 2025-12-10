@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chrome 확장 프로그램 스크린샷 템플릿 - 다크 테마</title>
+    <!-- Tailwind CSS CDN 로드 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 템플릿의 핵심 영역을 1280x800으로 고정합니다. */
+        #template-container {
+            width: 1280px;
+            height: 800px;
+            /* Flexbox를 사용하여 내부 요소를 중앙에 배치합니다. */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            /* 배경색 설정: 어두운 톤 (다크 차콜) */
+            background-color: #131313; 
+            /* 전체 화면 중앙에 위치하도록 설정 (선택 사항) */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            /* 스크린샷을 깔끔하게 찍기 위해 템플릿 자체에 그림자 추가 (어두운 배경에 맞게 조정) */
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); 
+            border-radius: 1.5rem; /* 둥근 모서리 적용 */
+        }
+
+        /* 이미지를 담는 컨테이너 스타일 */
+        #image-display {
+            /* 템플릿 크기에 맞게 유동적으로 크기를 조정합니다. */
+            max-width: 90%;
+            max-height: 80%;
+            /* 이미지를 부각시키기 위한 배경: #131313보다 약간 밝은 어두운 색 */
+            background-color: #222222; 
+            padding: 1rem;
+            border-radius: 1rem;
+            /* 그림자 색상을 어두운 배경에 맞게 조정 */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 실제 이미지 스타일: 비율 유지 및 최대 크기로 표시 */
+        #main-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* 가변적인 이미지의 비율을 유지하며 컨테이너에 맞춤 */
+            border-radius: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!--
+        [스크린샷을 찍을 대상 영역]
+        이 #template-container 엘리먼트를 Chrome DevTools에서 선택하여 'Capture node screenshot'을 사용하세요.
+    -->
+    <div id="template-container">
+
+        <!-- 1. 부각되어야 할 이미지 영역 -->
+        <!-- 이미지 컨테이너 크기를 900x600으로 확장하여 이미지를 더 부각시킵니다. -->
+        <div id="image-display" class="w-[900px] h-[600px]">
+            <!--
+                여기에 실제 확장 프로그램 이미지를 넣어주세요.
+                이미지 URL을 `src`에 입력하세요.
+                placeholder 이미지를 넣어 두었습니다. (다크 테마에 맞게 색상 변경)
+                **object-fit: contain 덕분에 어떤 비율의 이미지를 넣어도 비율이 유지되며 컨테이너 안에 전체가 보입니다.**
+            -->
+            <img 
+                id="main-image" 
+                src="./checkin.png" 
+                alt="확장 프로그램 주요 화면"
+            >
+        </div>
+
+        <!-- 2. 간단한 설명 텍스트 영역 -->
+        <div class="text-center max-w-3xl px-4">
+            <!-- 텍스트 색상: 흰색 -->
+            <h1 class="text-4xl font-extrabold text-white mb-2">
+              호요버스 게임들을 한번에 출첵
+            </h1>
+            <!-- 텍스트 색상: 밝은 회색 -->
+            <p class="text-xl text-gray-300 font-medium">
+            매일 번거로운 접속/클릭 없이 계정 등록 한 번으로 출첵을 끝내세요.
+            </p>
+        </div>
+
+    </div>
+
+    <!--
+        [사용 방법]
+        1. 위의 <img> 태그의 src 속성을 실제 스크린샷 이미지 URL로 변경합니다.
+        2. <h1>과 <p> 태그 안의 텍스트를 확장 프로그램 설명으로 변경합니다.
+        3. 브라우저에서 이 파일을 엽니다.
+        4. F12 (또는 Ctrl+Shift+I)를 눌러 개발자 도구를 엽니다.
+        5. 'Elements' 탭에서 `id="template-container"`인 `div`를 찾아서 우클릭합니다.
+        6. 'Capture node screenshot'을 선택하여 1280x800 크기의 PNG 파일을 저장합니다.
+    -->
+
+</body>
+</html>
