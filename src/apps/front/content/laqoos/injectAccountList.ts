@@ -26,7 +26,8 @@ window.addEventListener('message', async (event) => {
     const result = await chrome.storage.local.get('accountList');
     const accountList = result.accountList ?? [];
     const responseData = accountList.map((account: AccountInfoType) => ({
-      ...account.scrap,
+      actId: account.actId,
+      scrap: account.scrap,
     }));
     window.postMessage(
       {
