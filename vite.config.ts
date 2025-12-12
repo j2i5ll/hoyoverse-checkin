@@ -28,7 +28,7 @@ export default defineConfig({
     react(),
     crx({ manifest }),
     sentryVitePlugin({
-      org: 'j2i5ll',
+      org: 'laqoos',
       project: 'hoyoverse-check-in',
       authToken: process.env.VITE_SENTRY_AUTH_TOKEN,
       release: {
