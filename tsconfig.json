@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "useDefineForClassFields": true,
+    "moduleResolution": "node",
+    "module": "esnext",
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "@assets/*": ["./src/assets/*"],
+      "@background/*": ["./src/apps/background/*"],
+      "@front/*": ["./src/apps/front/*"],
+      "@apps/*": ["./src/apps/*"],
+      "@src/*": ["./src/*"]
+    },
+    "allowJs": true,
+    "checkJs": false,
+    "isolatedModules": true,
+    "types": ["chrome", "node", "reflect-metadata", "react", "react-dom"],
+    "jsx": "react-jsx",
+    "esModuleInterop": true
+  },
+  "include": ["src"]
+}

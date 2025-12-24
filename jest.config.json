@@ -1,0 +1,17 @@
+{
+  "preset": "ts-jest",
+  "testEnvironment": "node",
+  "transform": {
+    "^.+\\.ts$": "ts-jest"
+  },
+  "testRegex": "\\.spec\\.ts$",
+  "moduleNameMapper": {
+    "src/(.*)": ["<rootDir>/src/$1"]
+  },
+  "moduleFileExtensions": ["ts", "tsx", "js", "json"],
+  "globals": {
+    "ts-jest": {
+      "diagnostics": true
+    }
+  }
+}
