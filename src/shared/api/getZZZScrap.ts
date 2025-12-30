@@ -80,7 +80,7 @@ export const getZZZSiuRecords = async ({
   lang: ScrapLang;
 }) => {
   const { data, retcode, message } = await httpWithCookie(
-    `https://sg-public-api.hoyolab.com/event/game_record_zzz/api/zzz/challenge?role_id=${roleId}&server=${region}&need_all=true&schedule_type=1`,
+    `https://sg-public-api.hoyolab.com/event/game_record_zzz/api/zzz/hadal_info_v2?role_id=${roleId}&server=${region}&schedule_type=1`,
     {
       method: 'GET',
       headers: {
