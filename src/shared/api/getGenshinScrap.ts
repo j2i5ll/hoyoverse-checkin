@@ -95,7 +95,7 @@ const getGenshinCharacterList = async ({
   );
 
   if (retcode !== ApiRetCode.Success) {
-    const error = new Error(message);
+    const error = new Error(`retcode: ${retcode}, message: ${message}`);
     captureException(error);
     throw error;
   }
@@ -150,7 +150,7 @@ const getGenshinCharacterDetail = async ({
   );
 
   if (retcode !== ApiRetCode.Success) {
-    const error = new Error(message);
+    const error = new Error(`retcode: ${retcode}, message: ${message}`);
     captureException(error);
     throw error;
   }
@@ -185,7 +185,7 @@ export const getGenshinSpiralAbyss = async ({
   );
 
   if (retcode !== ApiRetCode.Success) {
-    const error = new Error(message);
+    const error = new Error(`retcode: ${retcode}, message: ${message}`);
     captureException(error);
     throw error;
   }
@@ -220,7 +220,7 @@ export const getGenshinStygianOnslaught = async ({
   );
 
   if (retcode !== ApiRetCode.Success) {
-    const error = new Error(message);
+    const error = new Error(`retcode: ${retcode}, message: ${message}`);
     captureException(error);
     throw error;
   }

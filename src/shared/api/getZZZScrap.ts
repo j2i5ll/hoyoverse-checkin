@@ -28,7 +28,7 @@ export const getZZZCharacters = async ({
     false,
   );
   if (retcode !== ApiRetCode.Success) {
-    const error = new Error(message);
+    const error = new Error(`retcode: ${retcode}, message: ${message}`);
     captureException(error);
     throw error;
   }
@@ -92,7 +92,7 @@ export const getZZZSiuRecords = async ({
     false,
   );
   if (retcode !== ApiRetCode.Success) {
-    const error = new Error(message);
+    const error = new Error(`retcode: ${retcode}, message: ${message}`);
     captureException(error);
     throw error;
   }
@@ -123,7 +123,7 @@ export const getZZZStormRecords = async ({
     false,
   );
   if (retcode !== ApiRetCode.Success) {
-    const error = new Error(message);
+    const error = new Error(`retcode: ${retcode}, message: ${message}`);
     captureException(error);
     throw error;
   }

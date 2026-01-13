@@ -30,7 +30,7 @@ export const getHSRCharacters = async ({
     token,
   );
   if (retcode !== ApiRetCode.Success) {
-    const error = new Error(message);
+    const error = new Error(`retcode: ${retcode}, message: ${message}`);
     captureException(error);
     throw error;
   }
@@ -79,7 +79,7 @@ export const getHSRForgotRecord = async ({
     token,
   );
   if (retcode !== ApiRetCode.Success) {
-    const error = new Error(message);
+    const error = new Error(`retcode: ${retcode}, message: ${message}`);
     captureException(error);
     throw error;
   }
@@ -112,7 +112,7 @@ export const getHSRStoryRecord = async ({
     token,
   );
   if (retcode !== ApiRetCode.Success) {
-    const error = new Error(message);
+    const error = new Error(`retcode: ${retcode}, message: ${message}`);
     captureException(error);
     throw error;
   }
@@ -145,7 +145,7 @@ export const getHSRBossRecord = async ({
     token,
   );
   if (retcode !== ApiRetCode.Success) {
-    const error = new Error(message);
+    const error = new Error(`retcode: ${retcode}, message: ${message}`);
     captureException(error);
     throw error;
   }
