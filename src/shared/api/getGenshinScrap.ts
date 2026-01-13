@@ -158,6 +158,76 @@ const getGenshinCharacterDetail = async ({
   return data;
 };
 
+export const getGenshinSpiralAbyss = async ({
+  region,
+  roleId,
+  token,
+  lang,
+}: {
+  region: string;
+  roleId: string;
+  token: TokenType;
+  lang: ScrapLang;
+}) => {
+  const { data, retcode, message } = await httpWithCookie(
+    `https://sg-public-api.hoyolab.com/event/game_record/genshin/api/spiralAbyss?role_id=${roleId}&server=${region}&schedule_type=1`,
+    {
+      method: 'GET',
+      headers: {
+        'x-rpc-app_version': '1.5.0',
+        'x-rpc-client_type': '5',
+        'x-rpc-language': lang,
+        'x-rpc-lang': lang,
+      },
+    },
+    token,
+    false,
+  );
+
+  if (retcode !== ApiRetCode.Success) {
+    const error = new Error(message);
+    captureException(error);
+    throw error;
+  }
+
+  return data;
+};
+
+export const getGenshinStygianOnslaught = async ({
+  region,
+  roleId,
+  token,
+  lang,
+}: {
+  region: string;
+  roleId: string;
+  token: TokenType;
+  lang: ScrapLang;
+}) => {
+  const { data, retcode, message } = await httpWithCookie(
+    `https://sg-public-api.hoyolab.com/event/game_record/genshin/api/hard_challenge?role_id=${roleId}&server=${region}&need_detail=true`,
+    {
+      method: 'GET',
+      headers: {
+        'x-rpc-app_version': '1.5.0',
+        'x-rpc-client_type': '5',
+        'x-rpc-language': lang,
+        'x-rpc-lang': lang,
+      },
+    },
+    token,
+    false,
+  );
+
+  if (retcode !== ApiRetCode.Success) {
+    const error = new Error(message);
+    captureException(error);
+    throw error;
+  }
+
+  return data;
+};
+
 export const getGenshinCharacters = async ({
   region,
   roleId,

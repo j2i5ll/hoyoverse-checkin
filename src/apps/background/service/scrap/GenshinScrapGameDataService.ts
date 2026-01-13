@@ -15,7 +15,11 @@ import { ScrapLang, TokenType } from '@src/types';
 import { injectable } from 'tsyringe';
 import { ga } from '@src/shared/ga';
 import { accountStore } from '@background/store/accountStore';
-import { getGenshinCharacters } from '@src/shared/api/getGenshinScrap';
+import {
+  getGenshinCharacters,
+  getGenshinSpiralAbyss,
+  getGenshinStygianOnslaught,
+} from '@src/shared/api/getGenshinScrap';
 
 type RecordDataProps = {
   token: TokenType;
@@ -39,7 +43,14 @@ export class GenshinScrapGameDataService extends ScrapGameDataUsecase {
     const cookies = await getCurrentCookies();
     const { gameRoleId, region, nickname } = gameCard;
 
-    const [characterList, characterListEn] = await Promise.all([
+    const [
+      characterList,
+      characterListEn,
+      spiralAbyss,
+      spiralAbyssEn,
+      stygianOnslaught,
+      stygianOnslaughtEn,
+    ] = await Promise.all([
       this.getCharacterRecordData({
         token,
         roleId: gameRoleId,
@@ -47,6 +58,30 @@ export class GenshinScrapGameDataService extends ScrapGameDataUsecase {
         lang: 'ko-kr',
       }),
       this.getCharacterRecordData({
+        token,
+        roleId: gameRoleId,
+        region,
+        lang: 'en-us',
+      }),
+      this.getSpiralAbyssData({
+        token,
+        roleId: gameRoleId,
+        region,
+        lang: 'ko-kr',
+      }),
+      this.getSpiralAbyssData({
+        token,
+        roleId: gameRoleId,
+        region,
+        lang: 'en-us',
+      }),
+      this.getStygianOnslaughtData({
+        token,
+        roleId: gameRoleId,
+        region,
+        lang: 'ko-kr',
+      }),
+      this.getStygianOnslaughtData({
         token,
         roleId: gameRoleId,
         region,
@@ -60,9 +95,13 @@ export class GenshinScrapGameDataService extends ScrapGameDataUsecase {
     const res = await this.sendDataToServer({
       data: {
         characterList,
+        spiralAbyss,
+        stygianOnslaught,
         i18n: {
           'en-US': {
             characterList: characterListEn,
+            spiralAbyss: spiralAbyssEn,
+            stygianOnslaught: stygianOnslaughtEn,
           },
         },
       },
@@ -99,7 +138,32 @@ export class GenshinScrapGameDataService extends ScrapGameDataUsecase {
     }
   }
 
-  // Supabase 전송 함수 - 나중에 활성화
+  private async getSpiralAbyssData({
+    token,
+    roleId,
+    region,
+    lang,
+  }: RecordDataProps) {
+    try {
+      return getGenshinSpiralAbyss({ region, roleId, token, lang });
+    } catch {
+      return;
+    }
+  }
+
+  private async getStygianOnslaughtData({
+    token,
+    roleId,
+    region,
+    lang,
+  }: RecordDataProps) {
+    try {
+      return getGenshinStygianOnslaught({ region, roleId, token, lang });
+    } catch {
+      return;
+    }
+  }
+
   private async sendDataToServer({
     data,
     roleId,
@@ -107,22 +171,28 @@ export class GenshinScrapGameDataService extends ScrapGameDataUsecase {
   }: {
     data: {
       characterList: unknown[];
+      spiralAbyss: unknown;
+      stygianOnslaught: unknown;
       i18n: {
         'en-US': {
           characterList: unknown[];
+          spiralAbyss: unknown;
+          stygianOnslaught: unknown;
         };
       };
     };
     roleId: string;
     region: string;
   }) {
-    const { characterList, i18n } = data;
+    const { characterList, spiralAbyss, stygianOnslaught, i18n } = data;
     try {
       const res = await httpBE('/functions/v1/genshinScrap', {
         method: 'POST',
         body: JSON.stringify({
           data: {
             characterList,
+            spiralAbyss,
+            stygianOnslaught,
             i18n,
           },
           roleId,
