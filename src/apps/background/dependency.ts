@@ -14,6 +14,7 @@ import { SetStorageService } from '@background/service/storage/SetStorageService
 import { ZZZScrapGameDataService } from '@background/service/scrap/ZZZScrapGameDataService';
 import { GetScrapTargetService } from '@background/service/scrap/GetScrapTargetService';
 import { HSRScrapGameDataService } from '@background/service/scrap/HSRScrapGameDataService';
+import { GenshinScrapGameDataService } from '@background/service/scrap/GenshinScrapGameDataService';
 
 DIContainer.register('CallCheckInApiUsecase', {
   useClass: CallCheckInApiService,
@@ -39,6 +40,9 @@ DIContainer.register('ZZZScrapGameDataUsecase', {
 
 DIContainer.register('HSRScrapGameDataUsecase', {
   useClass: HSRScrapGameDataService,
+});
+DIContainer.register('GenshinScrapGameDataUsecase', {
+  useClass: GenshinScrapGameDataService,
 });
 DIContainer.register('GetScrapTargetUsecase', {
   useClass: GetScrapTargetService,

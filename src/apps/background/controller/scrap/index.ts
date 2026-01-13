@@ -10,6 +10,8 @@ export class ScrapController {
     private zzzScrapGameDataService: ScrapGameDataUsecase,
     @inject('HSRScrapGameDataUsecase')
     private hsrScrapGameDataService: ScrapGameDataUsecase,
+    @inject('GenshinScrapGameDataUsecase')
+    private genshinScrapGameDataService: ScrapGameDataUsecase,
     @inject('GetScrapTargetUsecase')
     private getScrapTargetService: GetScrapTargetUsecase,
   ) {}
@@ -37,8 +39,15 @@ export class ScrapController {
             },
           });
           break;
-        case GameActId[GameKey.Honkai]:
         case GameActId[GameKey.Genshin]:
+          await this.genshinScrapGameDataService.execute({
+            token: {
+              ltoken,
+              ltuid,
+            },
+          });
+          break;
+        case GameActId[GameKey.Honkai]:
           // TODO Nothing
           break;
         default:
