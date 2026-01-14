@@ -20,6 +20,7 @@ import {
   getGenshinSpiralAbyss,
   getGenshinStygianOnslaught,
 } from '@src/shared/api/getGenshinScrap';
+import { RetryLaterError } from '@src/shared/errors/RetryLaterError';
 
 type RecordDataProps = {
   token: TokenType;
@@ -32,97 +33,114 @@ type RecordDataProps = {
 export class GenshinScrapGameDataService extends ScrapGameDataUsecase {
   async execute(input: ScrapGameDataInput): Promise<ScrapGameDataOutput> {
     const { token } = input;
-    const gameCard = await this.getGameRecordCard({
-      token,
-      gameId: GameId[GameKey.Genshin],
-    });
 
-    // 많은 양의 데이터를 한번에 조회하기 때문에
-    // 요청 하나하나 호출할때마다 쿠키를 설정/복구를 반복하지 않고
-    // 요청을 보내기 전에 쿠키를 미리 저장하고 요청이 완료되면 쿠키를 복구한다.
-    const cookies = await getCurrentCookies();
-    const { gameRoleId, region, nickname } = gameCard;
+    try {
+      const gameCard = await this.getGameRecordCard({
+        token,
+        gameId: GameId[GameKey.Genshin],
+      });
 
-    const [
-      characterList,
-      characterListEn,
-      spiralAbyss,
-      spiralAbyssEn,
-      stygianOnslaught,
-      stygianOnslaughtEn,
-    ] = await Promise.all([
-      this.getCharacterRecordData({
-        token,
-        roleId: gameRoleId,
-        region,
-        lang: 'ko-kr',
-      }),
-      this.getCharacterRecordData({
-        token,
-        roleId: gameRoleId,
-        region,
-        lang: 'en-us',
-      }),
-      this.getSpiralAbyssData({
-        token,
-        roleId: gameRoleId,
-        region,
-        lang: 'ko-kr',
-      }),
-      this.getSpiralAbyssData({
-        token,
-        roleId: gameRoleId,
-        region,
-        lang: 'en-us',
-      }),
-      this.getStygianOnslaughtData({
-        token,
-        roleId: gameRoleId,
-        region,
-        lang: 'ko-kr',
-      }),
-      this.getStygianOnslaughtData({
-        token,
-        roleId: gameRoleId,
-        region,
-        lang: 'en-us',
-      }),
-    ]);
+      // 많은 양의 데이터를 한번에 조회하기 때문에
+      // 요청 하나하나 호출할때마다 쿠키를 설정/복구를 반복하지 않고
+      // 요청을 보내기 전에 쿠키를 미리 저장하고 요청이 완료되면 쿠키를 복구한다.
+      const cookies = await getCurrentCookies();
+      const { gameRoleId, region, nickname } = gameCard;
 
-    // 쿠키복구
-    await restoreCookies(cookies);
-
-    const res = await this.sendDataToServer({
-      data: {
+      const [
         characterList,
+        characterListEn,
         spiralAbyss,
+        spiralAbyssEn,
         stygianOnslaught,
-        i18n: {
-          'en-US': {
-            characterList: characterListEn,
-            spiralAbyss: spiralAbyssEn,
-            stygianOnslaught: stygianOnslaughtEn,
+        stygianOnslaughtEn,
+      ] = await Promise.all([
+        this.getCharacterRecordData({
+          token,
+          roleId: gameRoleId,
+          region,
+          lang: 'ko-kr',
+        }),
+        this.getCharacterRecordData({
+          token,
+          roleId: gameRoleId,
+          region,
+          lang: 'en-us',
+        }),
+        this.getSpiralAbyssData({
+          token,
+          roleId: gameRoleId,
+          region,
+          lang: 'ko-kr',
+        }),
+        this.getSpiralAbyssData({
+          token,
+          roleId: gameRoleId,
+          region,
+          lang: 'en-us',
+        }),
+        this.getStygianOnslaughtData({
+          token,
+          roleId: gameRoleId,
+          region,
+          lang: 'ko-kr',
+        }),
+        this.getStygianOnslaughtData({
+          token,
+          roleId: gameRoleId,
+          region,
+          lang: 'en-us',
+        }),
+      ]);
+
+      // 쿠키복구
+      await restoreCookies(cookies);
+
+      const res = await this.sendDataToServer({
+        data: {
+          characterList,
+          spiralAbyss,
+          stygianOnslaught,
+          i18n: {
+            'en-US': {
+              characterList: characterListEn,
+              spiralAbyss: spiralAbyssEn,
+              stygianOnslaught: stygianOnslaughtEn,
+            },
           },
         },
-      },
-      roleId: gameRoleId,
-      region,
-    });
+        roleId: gameRoleId,
+        region,
+      });
 
-    if (!res) {
-      return {
-        result: false,
-      };
+      if (!res) {
+        return {
+          result: false,
+        };
+      }
+      const { data } = res;
+      await accountStore.upsertScrap(token, GameKey.Genshin, {
+        isScrap: true,
+        lastScrapDate: new Date().toISOString(),
+        laqoosToken: data.token,
+        nickname,
+      });
+
+      return { result: true };
+    } catch (e) {
+      if (e instanceof RetryLaterError) {
+        // 서버 점검 시 6시간 뒤 재시도를 위해 lastScrapDate를 6시간 전으로 설정
+        const sixHoursAgo = new Date();
+        sixHoursAgo.setHours(sixHoursAgo.getHours() - 6);
+
+        await accountStore.upsertScrap(token, GameKey.Genshin, {
+          isScrap: true,
+          lastScrapDate: sixHoursAgo.toISOString(),
+        });
+
+        return { result: false };
+      }
+      throw e;
     }
-    const { data } = res;
-    await accountStore.upsertScrap(token, GameKey.Genshin, {
-      isScrap: true,
-      lastScrapDate: new Date().toISOString(),
-      laqoosToken: data.token,
-      nickname,
-    });
-
-    return { result: true };
   }
 
   private async getCharacterRecordData({
@@ -133,7 +151,10 @@ export class GenshinScrapGameDataService extends ScrapGameDataUsecase {
   }: RecordDataProps) {
     try {
       return getGenshinCharacters({ region, roleId, token, lang });
-    } catch {
+    } catch (e) {
+      if (e instanceof RetryLaterError) {
+        throw e;
+      }
       return [];
     }
   }
@@ -146,7 +167,10 @@ export class GenshinScrapGameDataService extends ScrapGameDataUsecase {
   }: RecordDataProps) {
     try {
       return getGenshinSpiralAbyss({ region, roleId, token, lang });
-    } catch {
+    } catch (e) {
+      if (e instanceof RetryLaterError) {
+        throw e;
+      }
       return;
     }
   }
@@ -159,7 +183,10 @@ export class GenshinScrapGameDataService extends ScrapGameDataUsecase {
   }: RecordDataProps) {
     try {
       return getGenshinStygianOnslaught({ region, roleId, token, lang });
-    } catch {
+    } catch (e) {
+      if (e instanceof RetryLaterError) {
+        throw e;
+      }
       return;
     }
   }

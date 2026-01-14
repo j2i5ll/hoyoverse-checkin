@@ -8,6 +8,7 @@ import {
   getZZZSiuRecords,
   getZZZStormRecords,
 } from '@src/shared/api/getZZZScrap';
+import { RetryLaterError } from '@src/shared/errors/RetryLaterError';
 import { GameActId, GameId } from '@src/shared/constants/game';
 import { GameKey } from '@src/shared/constants/game';
 import {
@@ -33,97 +34,113 @@ export class ZZZScrapGameDataService extends ScrapGameDataUsecase {
   async execute(input: ScrapGameDataInput): Promise<ScrapGameDataOutput> {
     const { token } = input;
 
-    const gameCard = await this.getGameRecordCard({
-      token,
-      gameId: GameId[GameKey.ZZZ],
-    });
+    try {
+      const gameCard = await this.getGameRecordCard({
+        token,
+        gameId: GameId[GameKey.ZZZ],
+      });
 
-    const { gameRoleId, region, nickname } = gameCard;
+      const { gameRoleId, region, nickname } = gameCard;
 
-    // 많은 양의 데이터를 한번에 조회하기 때문에
-    // 요청 하나하나 호출할때마다 쿠키를 설정/복구를 반복하지 않고
-    // 요청을 보내기 전에 쿠키를 미리 저장하고 요청이 완료되면 쿠키를 복구한다.
-    const cookies = await getCurrentCookies();
-    const [
-      characterList,
-      siuRecord,
-      stormRecord,
-      characterListEn,
-      siuRecordEn,
-      stormRecordEn,
-    ] = await Promise.all([
-      this.getCharacterRecordData({
-        token,
-        roleId: gameRoleId,
-        region,
-        lang: 'ko-kr',
-      }),
-      this.getSiuRecordData({
-        token,
-        roleId: gameRoleId,
-        region,
-        lang: 'ko-kr',
-      }),
-      this.getStormRecordData({
-        token,
-        roleId: gameRoleId,
-        region,
-        lang: 'ko-kr',
-      }),
-
-      this.getCharacterRecordData({
-        token,
-        roleId: gameRoleId,
-        region,
-        lang: 'en-us',
-      }),
-      this.getSiuRecordData({
-        token,
-        roleId: gameRoleId,
-        region,
-        lang: 'en-us',
-      }),
-      this.getStormRecordData({
-        token,
-        roleId: gameRoleId,
-        region,
-        lang: 'en-us',
-      }),
-    ]);
-
-    // 쿠키복구
-    await restoreCookies(cookies);
-
-    const res = await this.sendDataToServer({
-      data: {
+      // 많은 양의 데이터를 한번에 조회하기 때문에
+      // 요청 하나하나 호출할때마다 쿠키를 설정/복구를 반복하지 않고
+      // 요청을 보내기 전에 쿠키를 미리 저장하고 요청이 완료되면 쿠키를 복구한다.
+      const cookies = await getCurrentCookies();
+      const [
         characterList,
         siuRecord,
         stormRecord,
-        i18n: {
-          'en-US': {
-            characterList: characterListEn,
-            siuRecord: siuRecordEn,
-            stormRecord: stormRecordEn,
+        characterListEn,
+        siuRecordEn,
+        stormRecordEn,
+      ] = await Promise.all([
+        this.getCharacterRecordData({
+          token,
+          roleId: gameRoleId,
+          region,
+          lang: 'ko-kr',
+        }),
+        this.getSiuRecordData({
+          token,
+          roleId: gameRoleId,
+          region,
+          lang: 'ko-kr',
+        }),
+        this.getStormRecordData({
+          token,
+          roleId: gameRoleId,
+          region,
+          lang: 'ko-kr',
+        }),
+
+        this.getCharacterRecordData({
+          token,
+          roleId: gameRoleId,
+          region,
+          lang: 'en-us',
+        }),
+        this.getSiuRecordData({
+          token,
+          roleId: gameRoleId,
+          region,
+          lang: 'en-us',
+        }),
+        this.getStormRecordData({
+          token,
+          roleId: gameRoleId,
+          region,
+          lang: 'en-us',
+        }),
+      ]);
+
+      // 쿠키복구
+      await restoreCookies(cookies);
+
+      const res = await this.sendDataToServer({
+        data: {
+          characterList,
+          siuRecord,
+          stormRecord,
+          i18n: {
+            'en-US': {
+              characterList: characterListEn,
+              siuRecord: siuRecordEn,
+              stormRecord: stormRecordEn,
+            },
           },
         },
-      },
-      roleId: gameRoleId,
-      region,
-    });
+        roleId: gameRoleId,
+        region,
+      });
 
-    if (!res) {
-      return {
-        result: false,
-      };
+      if (!res) {
+        return {
+          result: false,
+        };
+      }
+      const { data } = res;
+      await accountStore.upsertScrap(token, GameKey.ZZZ, {
+        isScrap: true,
+        lastScrapDate: new Date().toISOString(),
+        laqoosToken: data.token,
+        nickname,
+      });
+      return { result: true };
+    } catch (e) {
+      if (e instanceof RetryLaterError) {
+        // 서버 점검 시 6시간 뒤 재시도를 위해 lastScrapDate를 6시간 전으로 설정
+        const sixHoursAgo = new Date();
+        sixHoursAgo.setHours(sixHoursAgo.getHours() - 6);
+
+        await accountStore.upsertScrap(token, GameKey.ZZZ, {
+          isScrap: true,
+          lastScrapDate: sixHoursAgo.toISOString(),
+        });
+
+        return { result: false };
+      }
+      throw e;
     }
-    const { data } = res;
-    await accountStore.upsertScrap(token, GameKey.ZZZ, {
-      isScrap: true,
-      lastScrapDate: new Date().toISOString(),
-      laqoosToken: data.token,
-      nickname,
-    });
-    return { result: true };
   }
 
   private async getCharacterRecordData({
@@ -141,6 +158,9 @@ export class ZZZScrapGameDataService extends ScrapGameDataUsecase {
       });
       return characterList;
     } catch (e) {
+      if (e instanceof RetryLaterError) {
+        throw e;
+      }
       captureException(e);
       return [];
     }
@@ -161,6 +181,9 @@ export class ZZZScrapGameDataService extends ScrapGameDataUsecase {
       });
       return siuRecord;
     } catch (e) {
+      if (e instanceof RetryLaterError) {
+        throw e;
+      }
       captureException(e);
       return undefined;
     }
@@ -181,6 +204,9 @@ export class ZZZScrapGameDataService extends ScrapGameDataUsecase {
       });
       return stormRecord;
     } catch (e) {
+      if (e instanceof RetryLaterError) {
+        throw e;
+      }
       captureException(e);
       return undefined;
     }

@@ -3,6 +3,7 @@ import { httpWithCookie } from '@src/shared/utils/http';
 import { ApiRetCode } from '@src/shared/constants/api-ret-code';
 import { filterFulfilled } from '@src/shared/utils/promise';
 import { captureException } from '@sentry/browser';
+import { RetryLaterError } from '@src/shared/errors/RetryLaterError';
 
 export const getZZZCharacters = async ({
   region,
@@ -27,6 +28,9 @@ export const getZZZCharacters = async ({
     token,
     false,
   );
+  if (retcode === ApiRetCode.ServerMaintenance) {
+    throw new RetryLaterError(retcode, message);
+  }
   if (retcode !== ApiRetCode.Success) {
     const error = new Error(`retcode: ${retcode}, message: ${message}`);
     captureException(error);
@@ -91,6 +95,9 @@ export const getZZZSiuRecords = async ({
     token,
     false,
   );
+  if (retcode === ApiRetCode.ServerMaintenance) {
+    throw new RetryLaterError(retcode, message);
+  }
   if (retcode !== ApiRetCode.Success) {
     const error = new Error(`retcode: ${retcode}, message: ${message}`);
     captureException(error);
@@ -122,6 +129,9 @@ export const getZZZStormRecords = async ({
     token,
     false,
   );
+  if (retcode === ApiRetCode.ServerMaintenance) {
+    throw new RetryLaterError(retcode, message);
+  }
   if (retcode !== ApiRetCode.Success) {
     const error = new Error(`retcode: ${retcode}, message: ${message}`);
     captureException(error);

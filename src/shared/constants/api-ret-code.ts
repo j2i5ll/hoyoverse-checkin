@@ -4,6 +4,7 @@ export enum ApiRetCode {
   NoCharacter = -10002,
   NeedCaptcha = 5001,
   DataIsNotPublic = 10102,
+  ServerMaintenance = 10307,
 }
 
 export const ErrorMessageKey: Record<ApiRetCode, string> = {
@@ -12,4 +13,5 @@ export const ErrorMessageKey: Record<ApiRetCode, string> = {
   [ApiRetCode.Success]: '',
   [ApiRetCode.AlreadyCheckIn]: '',
   [ApiRetCode.DataIsNotPublic]: '',
+  [ApiRetCode.ServerMaintenance]: '',
 };

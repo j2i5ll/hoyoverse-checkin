@@ -2,6 +2,7 @@ import { ScrapLang, TokenType } from '@src/types';
 import { httpWithCookie } from '@src/shared/utils/http';
 import { ApiRetCode } from '@src/shared/constants/api-ret-code';
 import { captureException } from '@sentry/browser';
+import { RetryLaterError } from '@src/shared/errors/RetryLaterError';
 
 type GenshinCharacterListItem = {
   id: number;
@@ -94,6 +95,10 @@ const getGenshinCharacterList = async ({
     false,
   );
 
+  if (retcode === ApiRetCode.ServerMaintenance) {
+    throw new RetryLaterError(retcode, message);
+  }
+
   if (retcode !== ApiRetCode.Success) {
     const error = new Error(`retcode: ${retcode}, message: ${message}`);
     captureException(error);
@@ -149,6 +154,10 @@ const getGenshinCharacterDetail = async ({
     false,
   );
 
+  if (retcode === ApiRetCode.ServerMaintenance) {
+    throw new RetryLaterError(retcode, message);
+  }
+
   if (retcode !== ApiRetCode.Success) {
     const error = new Error(`retcode: ${retcode}, message: ${message}`);
     captureException(error);
@@ -184,6 +193,10 @@ export const getGenshinSpiralAbyss = async ({
     false,
   );
 
+  if (retcode === ApiRetCode.ServerMaintenance) {
+    throw new RetryLaterError(retcode, message);
+  }
+
   if (retcode !== ApiRetCode.Success) {
     const error = new Error(`retcode: ${retcode}, message: ${message}`);
     captureException(error);
@@ -218,6 +231,10 @@ export const getGenshinStygianOnslaught = async ({
     token,
     false,
   );
+
+  if (retcode === ApiRetCode.ServerMaintenance) {
+    throw new RetryLaterError(retcode, message);
+  }
 
   if (retcode !== ApiRetCode.Success) {
     const error = new Error(`retcode: ${retcode}, message: ${message}`);

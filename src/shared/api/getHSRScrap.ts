@@ -3,6 +3,7 @@ import { httpWithCookie } from '@src/shared/utils/http';
 import { ApiRetCode } from '@src/shared/constants/api-ret-code';
 import { captureException } from '@sentry/browser';
 import { getOsDS } from '@src/shared/utils/ds';
+import { RetryLaterError } from '@src/shared/errors/RetryLaterError';
 
 export const getHSRCharacters = async ({
   region,
@@ -29,6 +30,9 @@ export const getHSRCharacters = async ({
     },
     token,
   );
+  if (retcode === ApiRetCode.ServerMaintenance) {
+    throw new RetryLaterError(retcode, message);
+  }
   if (retcode !== ApiRetCode.Success) {
     const error = new Error(`retcode: ${retcode}, message: ${message}`);
     captureException(error);
@@ -78,6 +82,9 @@ export const getHSRForgotRecord = async ({
     },
     token,
   );
+  if (retcode === ApiRetCode.ServerMaintenance) {
+    throw new RetryLaterError(retcode, message);
+  }
   if (retcode !== ApiRetCode.Success) {
     const error = new Error(`retcode: ${retcode}, message: ${message}`);
     captureException(error);
@@ -111,6 +118,9 @@ export const getHSRStoryRecord = async ({
     },
     token,
   );
+  if (retcode === ApiRetCode.ServerMaintenance) {
+    throw new RetryLaterError(retcode, message);
+  }
   if (retcode !== ApiRetCode.Success) {
     const error = new Error(`retcode: ${retcode}, message: ${message}`);
     captureException(error);
@@ -144,6 +154,9 @@ export const getHSRBossRecord = async ({
     },
     token,
   );
+  if (retcode === ApiRetCode.ServerMaintenance) {
+    throw new RetryLaterError(retcode, message);
+  }
   if (retcode !== ApiRetCode.Success) {
     const error = new Error(`retcode: ${retcode}, message: ${message}`);
     captureException(error);
