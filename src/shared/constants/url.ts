@@ -1,4 +1,3 @@
-export const COOKIE_URL = 'https://act.hoyolab.com';
 export const ACCOUNT_INFO_URL =
   'https://api-account-os.hoyolab.com/auth/api/getUserAccountInfoByLToken?t=';
 

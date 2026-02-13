@@ -26,7 +26,6 @@ export const getZZZCharacters = async ({
       },
     },
     token,
-    false,
   );
   if (retcode === ApiRetCode.ServerMaintenance) {
     throw new RetryLaterError(retcode, message);
@@ -50,7 +49,6 @@ export const getZZZCharacters = async ({
           },
         },
         token,
-        false,
       );
     }),
   );
@@ -93,7 +91,6 @@ export const getZZZSiuRecords = async ({
       },
     },
     token,
-    false,
   );
   if (retcode === ApiRetCode.ServerMaintenance) {
     throw new RetryLaterError(retcode, message);
@@ -127,7 +124,6 @@ export const getZZZStormRecords = async ({
       },
     },
     token,
-    false,
   );
   if (retcode === ApiRetCode.ServerMaintenance) {
     throw new RetryLaterError(retcode, message);

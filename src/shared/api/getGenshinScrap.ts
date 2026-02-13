@@ -92,7 +92,6 @@ const getGenshinCharacterList = async ({
       }),
     },
     token,
-    false,
   );
 
   if (retcode === ApiRetCode.ServerMaintenance) {
@@ -151,7 +150,6 @@ const getGenshinCharacterDetail = async ({
       }),
     },
     token,
-    false,
   );
 
   if (retcode === ApiRetCode.ServerMaintenance) {
@@ -190,7 +188,6 @@ export const getGenshinSpiralAbyss = async ({
       },
     },
     token,
-    false,
   );
 
   if (retcode === ApiRetCode.ServerMaintenance) {
@@ -229,7 +226,6 @@ export const getGenshinStygianOnslaught = async ({
       },
     },
     token,
-    false,
   );
 
   if (retcode === ApiRetCode.ServerMaintenance) {

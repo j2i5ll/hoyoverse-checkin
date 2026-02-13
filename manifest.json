@@ -4,7 +4,7 @@
   "name": "Hoyoverse Check-in",
   "version": "3.1.1",
   "description": "Hoyoverse Check-in",
-  "permissions": ["storage", "cookies"],
+  "permissions": ["storage", "cookies", "declarativeNetRequestWithHostAccess"],
   "host_permissions": ["*://*.hoyolab.com/"],
   "options_page": "src/apps/front/options/index.html",
   "background": {

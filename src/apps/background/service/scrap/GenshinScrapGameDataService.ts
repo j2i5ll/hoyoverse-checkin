@@ -5,11 +5,7 @@ import type {
 import { ScrapGameDataUsecase } from '@background/domain/scrap/usecase/ScrapGameDataUsecase';
 import { GameActId, GameId } from '@src/shared/constants/game';
 import { GameKey } from '@src/shared/constants/game';
-import {
-  getCurrentCookies,
-  httpBE,
-  restoreCookies,
-} from '@src/shared/utils/http';
+import { httpBE } from '@src/shared/utils/http';
 import { captureException } from '@src/shared/utils/sentry';
 import { ScrapLang, TokenType } from '@src/types';
 import { injectable } from 'tsyringe';
@@ -40,10 +36,6 @@ export class GenshinScrapGameDataService extends ScrapGameDataUsecase {
         gameId: GameId[GameKey.Genshin],
       });
 
-      // 많은 양의 데이터를 한번에 조회하기 때문에
-      // 요청 하나하나 호출할때마다 쿠키를 설정/복구를 반복하지 않고
-      // 요청을 보내기 전에 쿠키를 미리 저장하고 요청이 완료되면 쿠키를 복구한다.
-      const cookies = await getCurrentCookies();
       const { gameRoleId, region, nickname } = gameCard;
 
       const [
@@ -91,9 +83,6 @@ export class GenshinScrapGameDataService extends ScrapGameDataUsecase {
           lang: 'en-us',
         }),
       ]);
-
-      // 쿠키복구
-      await restoreCookies(cookies);
 
       const res = await this.sendDataToServer({
         data: {
