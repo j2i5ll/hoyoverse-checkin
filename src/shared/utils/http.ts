@@ -19,9 +19,10 @@ export const httpBE = async (path: string, opt: RequestInit) => {
   return json;
 };
 
-let nextRuleId = 1;
-function getNextRuleId(): number {
-  return nextRuleId++;
+function generateUniqueRuleId(): number {
+  const arr = new Uint32Array(1);
+  crypto.getRandomValues(arr);
+  return (arr[0] % 0x7FFFFFFF) + 1;
 }
 
 export const httpWithCookie = async (
@@ -31,9 +32,10 @@ export const httpWithCookie = async (
 ) => {
   const { ltoken, ltuid } = token;
   const cookieValue = `ltoken_v2=${ltoken}; ltuid_v2=${ltuid}`;
-  const ruleId = getNextRuleId();
+  const ruleId = generateUniqueRuleId();
 
   await chrome.declarativeNetRequest.updateSessionRules({
+    removeRuleIds: [ruleId],
     addRules: [
       {
         id: ruleId,
