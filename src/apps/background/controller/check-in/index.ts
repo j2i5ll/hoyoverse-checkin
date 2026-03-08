@@ -23,7 +23,7 @@ export class CheckInController {
     });
 
     await alarmManager.ensureAlarm(ALARM_NAMES.CHECK_IN, {
-      periodInMinutes: 30,
+      periodInMinutes: 1,
     });
   }
 

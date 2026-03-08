@@ -22,7 +22,7 @@ export class ScrapController {
 
     await alarmManager.ensureAlarm(ALARM_NAMES.SCRAP, {
       delayInMinutes: 1,
-      periodInMinutes: 60,
+      periodInMinutes: 30,
     });
   }
 
