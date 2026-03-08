@@ -23,7 +23,7 @@ export class CheckInController {
     });
 
     await alarmManager.ensureAlarm(ALARM_NAMES.CHECK_IN, {
-      periodInMinutes: 1,
+      periodInMinutes: 30,
     });
   }
 
@@ -36,4 +36,4 @@ export class CheckInController {
       await this.callCheckInApiService.execute(checkInList);
     accountStore.updateLastCheckIn(checkInResultList);
   }
-}
+}ㅏ
