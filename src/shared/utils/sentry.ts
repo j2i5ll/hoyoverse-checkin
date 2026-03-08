@@ -27,6 +27,18 @@ export const captureException = (exception: unknown, hint?: EventHint) => {
   scope.captureException(exception, hint)
 }
 
+export const captureApiException = (error: unknown, url: string) => {
+  captureException(error, {
+    captureContext: {
+      contexts: {
+        api: {
+          url,
+        },
+      },
+    },
+  });
+};
+
 export const captureMessage = (message: string, level?: SeverityLevel, hint?: EventHint) => {
   scope.captureMessage(message, level, hint)
 }

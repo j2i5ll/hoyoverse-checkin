@@ -1,6 +1,6 @@
 import { TokenType } from '@src/types';
 import { BE_URL } from '@src/shared/constants/url';
-import { captureException } from '@src/shared/utils/sentry';
+import { captureException, captureApiException } from '@src/shared/utils/sentry';
 import { JsonParseError } from '@src/shared/errors/JsonParseError';
 
 const MAX_RESPONSE_BODY_LENGTH = 300;
@@ -30,22 +30,34 @@ async function parseJsonResponse(res: Response, url: string) {
 }
 
 export const http = async (url: string, opt: RequestInit) => {
-  const res = await fetch(url, { credentials: 'include', ...opt });
-  const json = await parseJsonResponse(res, url);
-  return json;
+  try {
+    const res = await fetch(url, { credentials: 'include', ...opt });
+    return await parseJsonResponse(res, url);
+  } catch (e) {
+    if (!(e instanceof JsonParseError)) {
+      captureApiException(e, url);
+    }
+    throw e;
+  }
 };
 
 export const httpBE = async (path: string, opt: RequestInit) => {
   const fullUrl = `${BE_URL}${path}`;
-  const res = await fetch(fullUrl, {
-    ...opt,
-    headers: {
-      Authorization: `Bearer ${import.meta.env.VITE_API_ANON_KEY}`,
-      'Content-Type': 'application/json',
-    },
-  });
-  const json = await parseJsonResponse(res, fullUrl);
-  return json;
+  try {
+    const res = await fetch(fullUrl, {
+      ...opt,
+      headers: {
+        Authorization: `Bearer ${import.meta.env.VITE_API_ANON_KEY}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    return await parseJsonResponse(res, fullUrl);
+  } catch (e) {
+    if (!(e instanceof JsonParseError)) {
+      captureApiException(e, fullUrl);
+    }
+    throw e;
+  }
 };
 
 function generateUniqueRuleId(): number {
@@ -95,8 +107,12 @@ export const httpWithCookie = async (
       ...opt,
       credentials: 'omit',
     });
-    const json = await parseJsonResponse(res, url);
-    return json;
+    return await parseJsonResponse(res, url);
+  } catch (e) {
+    if (!(e instanceof JsonParseError)) {
+      captureApiException(e, url);
+    }
+    throw e;
   } finally {
     await chrome.declarativeNetRequest.updateSessionRules({
       removeRuleIds: [ruleId],

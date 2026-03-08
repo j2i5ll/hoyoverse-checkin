@@ -1,7 +1,7 @@
 import { ScrapLang, TokenType } from '@src/types';
 import { httpWithCookie } from '@src/shared/utils/http';
 import { ApiRetCode } from '@src/shared/constants/api-ret-code';
-import { captureException } from '@sentry/browser';
+import { captureApiException } from '@src/shared/utils/sentry';
 import { getOsDS } from '@src/shared/utils/ds';
 import { RetryLaterError } from '@src/shared/errors/RetryLaterError';
 
@@ -17,8 +17,9 @@ export const getHSRCharacters = async ({
   lang: ScrapLang;
 }) => {
   const ds = getOsDS();
+  const url = `https://sg-public-api.hoyolab.com/event/game_record/hkrpg/api/avatar/info?server=${region}&role_id=${roleId}&need_wiki=true`;
   const { data, retcode, message } = await httpWithCookie(
-    `https://sg-public-api.hoyolab.com/event/game_record/hkrpg/api/avatar/info?server=${region}&role_id=${roleId}&need_wiki=true`,
+    url,
     {
       method: 'GET',
       headers: {
@@ -35,7 +36,7 @@ export const getHSRCharacters = async ({
   }
   if (retcode !== ApiRetCode.Success) {
     const error = new Error(`retcode: ${retcode}, message: ${message}`);
-    captureException(error);
+    captureApiException(error, url);
     throw error;
   }
   const avatarList = data.avatar_list;
@@ -69,8 +70,9 @@ export const getHSRForgotRecord = async ({
   lang: ScrapLang;
 }) => {
   const ds = getOsDS();
+  const url = `https://sg-public-api.hoyolab.com/event/game_record/hkrpg/api/challenge?schedule_type=1&role_id=${roleId}&server=${region}&need_all=true`;
   const { data, retcode, message } = await httpWithCookie(
-    `https://sg-public-api.hoyolab.com/event/game_record/hkrpg/api/challenge?schedule_type=1&role_id=${roleId}&server=${region}&need_all=true`,
+    url,
     {
       method: 'GET',
       headers: {
@@ -87,7 +89,7 @@ export const getHSRForgotRecord = async ({
   }
   if (retcode !== ApiRetCode.Success) {
     const error = new Error(`retcode: ${retcode}, message: ${message}`);
-    captureException(error);
+    captureApiException(error, url);
     throw error;
   }
   return data;
@@ -105,8 +107,9 @@ export const getHSRStoryRecord = async ({
   lang: ScrapLang;
 }) => {
   const ds = getOsDS();
+  const url = `https://sg-public-api.hoyolab.com/event/game_record/hkrpg/api/challenge_story?schedule_type=1&role_id=${roleId}&server=${region}&need_all=true`;
   const { data, retcode, message } = await httpWithCookie(
-    `https://sg-public-api.hoyolab.com/event/game_record/hkrpg/api/challenge_story?schedule_type=1&role_id=${roleId}&server=${region}&need_all=true`,
+    url,
     {
       method: 'GET',
       headers: {
@@ -123,7 +126,7 @@ export const getHSRStoryRecord = async ({
   }
   if (retcode !== ApiRetCode.Success) {
     const error = new Error(`retcode: ${retcode}, message: ${message}`);
-    captureException(error);
+    captureApiException(error, url);
     throw error;
   }
   return data;
@@ -141,8 +144,9 @@ export const getHSRBossRecord = async ({
   lang: ScrapLang;
 }) => {
   const ds = getOsDS();
+  const url = `https://sg-public-api.hoyolab.com/event/game_record/hkrpg/api/challenge_boss?schedule_type=1&role_id=${roleId}&server=${region}&need_all=true`;
   const { data, retcode, message } = await httpWithCookie(
-    `https://sg-public-api.hoyolab.com/event/game_record/hkrpg/api/challenge_boss?schedule_type=1&role_id=${roleId}&server=${region}&need_all=true`,
+    url,
     {
       method: 'GET',
       headers: {
@@ -159,7 +163,7 @@ export const getHSRBossRecord = async ({
   }
   if (retcode !== ApiRetCode.Success) {
     const error = new Error(`retcode: ${retcode}, message: ${message}`);
-    captureException(error);
+    captureApiException(error, url);
     throw error;
   }
   return data;

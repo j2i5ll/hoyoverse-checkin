@@ -1,6 +1,7 @@
 import { FromApiType, TokenType } from '@src/types';
 import { httpWithCookie } from '@src/shared/utils/http';
 import { ApiRetCode } from '@src/shared/constants/api-ret-code';
+import { captureApiException } from '@src/shared/utils/sentry';
 import { RetryLaterError } from '@src/shared/errors/RetryLaterError';
 
 type GetGameRecordCardProps = {
@@ -16,8 +17,9 @@ export default async function getGameRecordCard({
   region: string;
   gameRoleId: string;
 }> {
+  const url = `https://bbs-api-os.hoyolab.com/game_record/card/wapi/getGameRecordCard?uid=${token.ltuid}`;
   const { data, retcode, message } = await httpWithCookie(
-    `https://bbs-api-os.hoyolab.com/game_record/card/wapi/getGameRecordCard?uid=${token.ltuid}`,
+    url,
     {
       method: 'GET',
     },
@@ -29,7 +31,9 @@ export default async function getGameRecordCard({
   }
 
   if (retcode !== ApiRetCode.Success) {
-    throw new Error(`retcode: ${retcode}, message: ${message}`);
+    const error = new Error(`retcode: ${retcode}, message: ${message}`);
+    captureApiException(error, url);
+    throw error;
   }
 
   const {

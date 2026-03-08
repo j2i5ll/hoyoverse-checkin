@@ -9,7 +9,7 @@ import { getUrlLocale } from '@src/shared/utils/url';
 import { ErrorMessageKey } from '@src/shared/constants/api-ret-code';
 import { i18n } from '@background/i18n';
 import { injectable } from 'tsyringe';
-import { captureException} from '@src/shared/utils/sentry';
+import { captureApiException } from '@src/shared/utils/sentry';
 import { GameActId, GameKey } from '@src/shared/constants/game';
 import { CheckInError } from '@src/shared/error';
 import { ga } from '@src/shared/ga';
@@ -43,8 +43,9 @@ export class CallCheckInApiService implements CallCheckInApiUsecase {
         headers['x-rpc-signgame'] = 'zzz';
       }
 
+      const url = `${checkInAPIUrl}?lang=${getUrlLocale()}`;
       const resp = await httpWithCookie(
-        `${checkInAPIUrl}?lang=${getUrlLocale()}`,
+        url,
         {
           credentials: 'include',
           method: 'POST',
@@ -64,7 +65,7 @@ export class CallCheckInApiService implements CallCheckInApiUsecase {
           checkInResultList.push(this.successResponse(resp, actId, ltuid));
           break;
         default: {
-          captureException(new CheckInError(`${retcode}: ${message}`))
+          captureApiException(new CheckInError(`${retcode}: ${message}`), url)
           const errorMsgKey = ErrorMessageKey[retcode as ApiRetCode];
           const msg = errorMsgKey ? i18n.t(errorMsgKey) : message;
           checkInResultList.push({

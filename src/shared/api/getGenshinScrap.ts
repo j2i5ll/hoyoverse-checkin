@@ -1,7 +1,7 @@
 import { ScrapLang, TokenType } from '@src/types';
 import { httpWithCookie } from '@src/shared/utils/http';
 import { ApiRetCode } from '@src/shared/constants/api-ret-code';
-import { captureException } from '@sentry/browser';
+import { captureApiException } from '@src/shared/utils/sentry';
 import { RetryLaterError } from '@src/shared/errors/RetryLaterError';
 
 type GenshinCharacterListItem = {
@@ -76,8 +76,9 @@ const getGenshinCharacterList = async ({
   token: TokenType;
   lang: ScrapLang;
 }): Promise<GenshinCharacterListItem[]> => {
+  const url = 'https://sg-public-api.hoyolab.com/event/game_record/genshin/api/character/list';
   const { data, retcode, message } = await httpWithCookie(
-    'https://sg-public-api.hoyolab.com/event/game_record/genshin/api/character/list',
+    url,
     {
       method: 'POST',
       headers: {
@@ -100,7 +101,7 @@ const getGenshinCharacterList = async ({
 
   if (retcode !== ApiRetCode.Success) {
     const error = new Error(`retcode: ${retcode}, message: ${message}`);
-    captureException(error);
+    captureApiException(error, url);
     throw error;
   }
 
@@ -134,8 +135,9 @@ const getGenshinCharacterDetail = async ({
     };
   }
 
+  const url = 'https://sg-public-api.hoyolab.com/event/game_record/genshin/api/character/detail';
   const { data, retcode, message } = await httpWithCookie(
-    'https://sg-public-api.hoyolab.com/event/game_record/genshin/api/character/detail',
+    url,
     {
       method: 'POST',
       headers: {
@@ -158,7 +160,7 @@ const getGenshinCharacterDetail = async ({
 
   if (retcode !== ApiRetCode.Success) {
     const error = new Error(`retcode: ${retcode}, message: ${message}`);
-    captureException(error);
+    captureApiException(error, url);
     throw error;
   }
 
@@ -176,8 +178,9 @@ export const getGenshinSpiralAbyss = async ({
   token: TokenType;
   lang: ScrapLang;
 }) => {
+  const url = `https://sg-public-api.hoyolab.com/event/game_record/genshin/api/spiralAbyss?role_id=${roleId}&server=${region}&schedule_type=1`;
   const { data, retcode, message } = await httpWithCookie(
-    `https://sg-public-api.hoyolab.com/event/game_record/genshin/api/spiralAbyss?role_id=${roleId}&server=${region}&schedule_type=1`,
+    url,
     {
       method: 'GET',
       headers: {
@@ -196,7 +199,7 @@ export const getGenshinSpiralAbyss = async ({
 
   if (retcode !== ApiRetCode.Success) {
     const error = new Error(`retcode: ${retcode}, message: ${message}`);
-    captureException(error);
+    captureApiException(error, url);
     throw error;
   }
 
@@ -214,8 +217,9 @@ export const getGenshinStygianOnslaught = async ({
   token: TokenType;
   lang: ScrapLang;
 }) => {
+  const url = `https://sg-public-api.hoyolab.com/event/game_record/genshin/api/hard_challenge?role_id=${roleId}&server=${region}&need_detail=true`;
   const { data, retcode, message } = await httpWithCookie(
-    `https://sg-public-api.hoyolab.com/event/game_record/genshin/api/hard_challenge?role_id=${roleId}&server=${region}&need_detail=true`,
+    url,
     {
       method: 'GET',
       headers: {
@@ -234,7 +238,7 @@ export const getGenshinStygianOnslaught = async ({
 
   if (retcode !== ApiRetCode.Success) {
     const error = new Error(`retcode: ${retcode}, message: ${message}`);
-    captureException(error);
+    captureApiException(error, url);
     throw error;
   }
 

@@ -2,7 +2,7 @@ import { ScrapLang, TokenType } from '@src/types';
 import { httpWithCookie } from '@src/shared/utils/http';
 import { ApiRetCode } from '@src/shared/constants/api-ret-code';
 import { filterFulfilled } from '@src/shared/utils/promise';
-import { captureException } from '@sentry/browser';
+import { captureApiException } from '@src/shared/utils/sentry';
 import { RetryLaterError } from '@src/shared/errors/RetryLaterError';
 
 export const getZZZCharacters = async ({
@@ -16,8 +16,9 @@ export const getZZZCharacters = async ({
   token: TokenType;
   lang: ScrapLang;
 }) => {
+  const url = `https://sg-public-api.hoyolab.com/event/game_record_zzz/api/zzz/avatar/basic?role_id=${roleId}&server=${region}`;
   const { data, retcode, message } = await httpWithCookie(
-    `https://sg-public-api.hoyolab.com/event/game_record_zzz/api/zzz/avatar/basic?role_id=${roleId}&server=${region}`,
+    url,
     {
       method: 'GET',
       headers: {
@@ -32,7 +33,7 @@ export const getZZZCharacters = async ({
   }
   if (retcode !== ApiRetCode.Success) {
     const error = new Error(`retcode: ${retcode}, message: ${message}`);
-    captureException(error);
+    captureApiException(error, url);
     throw error;
   }
   const detailList = await Promise.allSettled(
@@ -81,8 +82,9 @@ export const getZZZSiuRecords = async ({
   region: string;
   lang: ScrapLang;
 }) => {
+  const url = `https://sg-public-api.hoyolab.com/event/game_record_zzz/api/zzz/hadal_info_v2?role_id=${roleId}&server=${region}&schedule_type=1`;
   const { data, retcode, message } = await httpWithCookie(
-    `https://sg-public-api.hoyolab.com/event/game_record_zzz/api/zzz/hadal_info_v2?role_id=${roleId}&server=${region}&schedule_type=1`,
+    url,
     {
       method: 'GET',
       headers: {
@@ -97,7 +99,7 @@ export const getZZZSiuRecords = async ({
   }
   if (retcode !== ApiRetCode.Success) {
     const error = new Error(`retcode: ${retcode}, message: ${message}`);
-    captureException(error);
+    captureApiException(error, url);
     throw error;
   }
   return data;
@@ -114,8 +116,9 @@ export const getZZZStormRecords = async ({
   region: string;
   lang: ScrapLang;
 }) => {
+  const url = `https://sg-public-api.hoyolab.com/event/game_record_zzz/api/zzz/mem_detail?uid=${roleId}&region=${region}&schedule_type=1`;
   const { data, retcode, message } = await httpWithCookie(
-    `https://sg-public-api.hoyolab.com/event/game_record_zzz/api/zzz/mem_detail?uid=${roleId}&region=${region}&schedule_type=1`,
+    url,
     {
       method: 'GET',
       headers: {
@@ -130,7 +133,7 @@ export const getZZZStormRecords = async ({
   }
   if (retcode !== ApiRetCode.Success) {
     const error = new Error(`retcode: ${retcode}, message: ${message}`);
-    captureException(error);
+    captureApiException(error, url);
     throw error;
   }
   return data;

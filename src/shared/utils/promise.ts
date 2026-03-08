@@ -1,4 +1,4 @@
-import { captureException } from '@sentry/browser';
+import { captureException } from '@src/shared/utils/sentry';
 
 export const filterFulfilled = <T = unknown>(
   list: PromiseSettledResult<T>[],
