@@ -1,6 +1,7 @@
 import { GetScrapTargetUsecase } from '@background/domain/scrap/usecase/GetScrapTargetUsecase';
 import { ScrapGameDataUsecase } from '@background/domain/scrap/usecase/ScrapGameDataUsecase';
 import { GameActId, GameKey } from '@src/shared/constants/game';
+import { alarmManager, ALARM_NAMES } from '@background/alarm/AlarmManager';
 import { inject, injectable } from 'tsyringe';
 
 @injectable()
@@ -15,58 +16,51 @@ export class ScrapController {
     @inject('GetScrapTargetUsecase')
     private getScrapTargetService: GetScrapTargetUsecase,
   ) {}
-  private readonly intervalTime = 1000 * 60;
+
+  async start() {
+    alarmManager.registerHandler(ALARM_NAMES.SCRAP, () => this.syncData());
+
+    await alarmManager.ensureAlarm(ALARM_NAMES.SCRAP, {
+      delayInMinutes: 1,
+      periodInMinutes: 1,
+    });
+  }
 
   private async syncData() {
     const targetList = await this.getScrapTargetService.execute();
 
     for (const target of targetList) {
       const { actId, ltoken, ltuid } = target;
-      switch (actId) {
-        case GameActId[GameKey.ZZZ]:
-          await this.zzzScrapGameDataService.execute({
-            token: {
-              ltoken,
-              ltuid,
-            },
-          });
-          break;
-        case GameActId[GameKey.Starrail]:
-          await this.hsrScrapGameDataService.execute({
-            token: {
-              ltoken,
-              ltuid,
-            },
-          });
-          break;
-        case GameActId[GameKey.Genshin]:
-          await this.genshinScrapGameDataService.execute({
-            token: {
-              ltoken,
-              ltuid,
-            },
-          });
-          break;
-        case GameActId[GameKey.Honkai]:
-          // TODO Nothing
-          break;
-        default:
-          throw new Error(`Invalid actId : ${actId}`);
+      try {
+        switch (actId) {
+          case GameActId[GameKey.ZZZ]:
+            await this.zzzScrapGameDataService.execute({
+              token: { ltoken, ltuid },
+            });
+            break;
+          case GameActId[GameKey.Starrail]:
+            await this.hsrScrapGameDataService.execute({
+              token: { ltoken, ltuid },
+            });
+            break;
+          case GameActId[GameKey.Genshin]:
+            await this.genshinScrapGameDataService.execute({
+              token: { ltoken, ltuid },
+            });
+            break;
+          case GameActId[GameKey.Honkai]:
+            // TODO Nothing
+            break;
+          default:
+            console.error(`[ScrapController] 잘못된 actId: ${actId}`);
+            break;
+        }
+      } catch (error) {
+        console.error(
+          `[ScrapController] 스크랩 대상 실패 (actId: ${actId}, ltuid: ${ltuid}):`,
+          error,
+        );
       }
     }
-  }
-  private runInterval() {
-    setTimeout(async () => {
-      await this.syncData();
-      this.runInterval();
-    }, this.intervalTime);
-  }
-  async run() {
-    // 처음 시작시에는 10초 텀을 두고 시작.
-    // 가능하면 출첵과 겹치는것을 피하기위해.
-    setTimeout(async () => {
-      await this.syncData();
-      this.runInterval();
-    }, 1000 * 10);
   }
 }

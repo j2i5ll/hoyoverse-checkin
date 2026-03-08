@@ -7,6 +7,7 @@ import { DIContainer } from './dependency';
 import { initSentry } from '@src/shared/utils/sentry';
 import { ga } from '@src/shared/ga';
 import { ScrapController } from '@background/controller/scrap';
+import { alarmManager } from '@background/alarm/AlarmManager';
 ga.init('bg');
 initSentry();
 
@@ -23,7 +24,7 @@ chrome.runtime.onInstalled.addListener((details) => {
 });
 
 const checkInController = DIContainer.resolve(CheckInController);
-checkInController.runCheckInInterval();
+checkInController.start();
 
 const messengerController = DIContainer.resolve(MessengerController);
 messengerController.listen();
@@ -32,6 +33,8 @@ const badgeController = DIContainer.resolve(BadgeController);
 badgeController.listenStorageChange();
 
 const scrapController = DIContainer.resolve(ScrapController);
-scrapController.run();
+scrapController.start();
+
+alarmManager.init();
 
 console.log('background loaded');

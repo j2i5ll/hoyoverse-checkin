@@ -2,23 +2,29 @@ import type { CallCheckInApiUsecase } from '@background/domain/check-in/usecase/
 import type { GetCheckInListUsecase } from '@background/domain/check-in/usecase/GetCheckInListUsecase';
 
 import { accountStore } from '@background/store/accountStore';
+import { alarmManager, ALARM_NAMES } from '@background/alarm/AlarmManager';
 
 import { inject, injectable } from 'tsyringe';
 
 @injectable()
 export class CheckInController {
-  //https://developer.chrome.com/docs/extensions/mv3/service_workers/service-worker-lifecycle/#idle-shutdown
-  private readonly TIMER_TIMEOUT = 25 * 1000;
-
   constructor(
     @inject('CallCheckInApiUsecase')
     private callCheckInApiService: CallCheckInApiUsecase,
     @inject('GetCheckInListUsecase')
     private getCheckInListUsecase: GetCheckInListUsecase,
   ) {}
-  runCheckInInterval() {
-    this.checkInAll();
-    this.runCheckInTimer(this.TIMER_TIMEOUT);
+
+  async start() {
+    alarmManager.registerHandler(ALARM_NAMES.CHECK_IN, () => this.checkInAll());
+
+    this.checkInAll().catch((error) => {
+      console.error('[CheckInController] 즉시 실행 checkInAll 실패:', error);
+    });
+
+    await alarmManager.ensureAlarm(ALARM_NAMES.CHECK_IN, {
+      periodInMinutes: 1,
+    });
   }
 
   async checkInAll() {
@@ -29,12 +35,5 @@ export class CheckInController {
     const checkInResultList =
       await this.callCheckInApiService.execute(checkInList);
     accountStore.updateLastCheckIn(checkInResultList);
-  }
-
-  private runCheckInTimer(ms: number) {
-    setTimeout(() => {
-      this.checkInAll();
-      this.runCheckInTimer(this.TIMER_TIMEOUT);
-    }, ms);
   }
 }
