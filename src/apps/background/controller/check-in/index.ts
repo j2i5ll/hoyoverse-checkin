@@ -36,4 +36,4 @@ export class CheckInController {
       await this.callCheckInApiService.execute(checkInList);
     accountStore.updateLastCheckIn(checkInResultList);
   }
-}ㅏ
+}
