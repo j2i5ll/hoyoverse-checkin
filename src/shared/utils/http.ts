@@ -1,21 +1,50 @@
 import { TokenType } from '@src/types';
 import { BE_URL } from '@src/shared/constants/url';
+import { captureException } from '@src/shared/utils/sentry';
+import { JsonParseError } from '@src/shared/errors/JsonParseError';
+
+const MAX_RESPONSE_BODY_LENGTH = 300;
+
+async function parseJsonResponse(res: Response, url: string) {
+  const text = await res.text();
+  try {
+    return JSON.parse(text);
+  } catch {
+    const body = text.substring(0, MAX_RESPONSE_BODY_LENGTH);
+    const error = new JsonParseError(url, res.status, body);
+
+    captureException(error, {
+      captureContext: {
+        contexts: {
+          response: {
+            url,
+            status_code: res.status,
+            body,
+          },
+        },
+      },
+    });
+
+    throw error;
+  }
+}
 
 export const http = async (url: string, opt: RequestInit) => {
   const res = await fetch(url, { credentials: 'include', ...opt });
-  const json = await res.json();
+  const json = await parseJsonResponse(res, url);
   return json;
 };
 
 export const httpBE = async (path: string, opt: RequestInit) => {
-  const res = await fetch(`${BE_URL}${path}`, {
+  const fullUrl = `${BE_URL}${path}`;
+  const res = await fetch(fullUrl, {
     ...opt,
     headers: {
       Authorization: `Bearer ${import.meta.env.VITE_API_ANON_KEY}`,
       'Content-Type': 'application/json',
     },
   });
-  const json = await res.json();
+  const json = await parseJsonResponse(res, fullUrl);
   return json;
 };
 
@@ -66,7 +95,7 @@ export const httpWithCookie = async (
       ...opt,
       credentials: 'omit',
     });
-    const json = await res.json();
+    const json = await parseJsonResponse(res, url);
     return json;
   } finally {
     await chrome.declarativeNetRequest.updateSessionRules({
