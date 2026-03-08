@@ -18,10 +18,10 @@ export class GetCheckInListService implements GetCheckInListUsecase {
          *   run next timeout
          *
          */
-        if (
-          account.lastCheckInDate &&
-          account.lastCheckInDate < this.getLastCheckInAvailDate()
-        ) {
+        if (!account.lastCheckInDate) {
+          return true;
+        }
+        if (account.lastCheckInDate < this.getLastCheckInAvailDate()) {
           return true;
         }
         return false;
