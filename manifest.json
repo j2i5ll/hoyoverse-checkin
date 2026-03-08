@@ -28,10 +28,6 @@
   ],
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["src/apps/front/content/wakeup/wakeupScript.ts"]
-    },
-    {
       "matches": [
         "https://act.hoyolab.com/ys/event/signin-sea-v3/index.html*",
         "https://act.hoyolab.com/bbs/event/signin/hkrpg/index.html*",

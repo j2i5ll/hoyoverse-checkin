@@ -59,8 +59,6 @@ export class MessengerController {
         );
       case MessageType.GetCheckInTargetList: // background(checkInController)에서 사용하고 있음. messenger를 이용하지 않고 사용되고 있음.
         return this.getCheckInListService.execute();
-      case MessageType.Ping:
-        return Promise.resolve();
       case MessageType.GetStorage:
         return this.getStorageService.execute(request.data as GetStorageInput);
       case MessageType.SetStorage:

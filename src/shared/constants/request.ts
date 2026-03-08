@@ -4,5 +4,4 @@ export const enum RequestType {
   AddAccount = 'addAccount',
   CheckIn = 'checkIn',
   GetCheckInTargetList = 'getCheckInTargetList',
-  Ping = 'ping',
 }

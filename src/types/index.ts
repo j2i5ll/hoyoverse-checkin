@@ -85,7 +85,6 @@ export const enum MessageType {
   AddAccount = 'addAccount',
   CheckIn = 'checkIn',
   GetCheckInTargetList = 'getCheckInTargetList',
-  Ping = 'ping',
   GetStorage = 'getStorage',
   SetStorage = 'setStorage',
 }
