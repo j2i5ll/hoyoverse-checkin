@@ -67,7 +67,10 @@ export class CallCheckInApiService implements CallCheckInApiUsecase {
         default: {
           captureApiException(new CheckInError(`${retcode}: ${message}`), url)
           const errorMsgKey = ErrorMessageKey[retcode as ApiRetCode];
-          const msg = errorMsgKey ? i18n.t(errorMsgKey) : message;
+          let msg = errorMsgKey ? i18n.t(errorMsgKey) : message;
+          if (retcode === ApiRetCode.AuthExpired) {
+            msg = `${msg}\n${i18n.t('common.re_register_account')}`;
+          }
           checkInResultList.push({
             actId,
             ltuid,

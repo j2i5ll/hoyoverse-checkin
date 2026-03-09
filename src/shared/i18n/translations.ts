@@ -25,6 +25,7 @@ export default {
       'common.no_character': '게임 내에 캐릭터가 없습니다.',
       'common.need_captcha':
         '출석체크 사이트에서 수동으로 출석체크가 필요합니다.',
+      'common.re_register_account': '계정 삭제 후 다시 등록해 주세요.',
       'common.resource_stemina': '개척력',
       'common.resource_resin': '레진',
       'common.resource_energy': '배터리',
@@ -109,6 +110,7 @@ export default {
       'common.no_character': 'There is no character in the game.',
       'common.need_captcha':
         'Manual check-in is required on the attendance site.',
+      'common.re_register_account': 'Please delete the account and re-register.',
       'common.resource_stemina': 'Trailblaze Power',
       'common.resource_resin': 'Resin',
       'common.resource_energy': 'Battery',
@@ -194,6 +196,7 @@ export default {
       'common.registration': '登録する',
       'common.no_character': 'ゲームの中にキャラクターがいません。',
       'common.need_captcha': '出席サイトで手動でチェックインが必要です。',
+      'common.re_register_account': 'アカウントを削除して再登録してください。',
       'common.resource_stemina': '開拓力',
       'common.resource_resin': '樹脂',
       'common.resource_energy': 'バッテリー',
@@ -273,6 +276,7 @@ export default {
       'common.registration': '注册',
       'common.no_character': '游戏中没有角色。',
       'common.need_captcha': '需要在出勤网站上手动签到。',
+      'common.re_register_account': '请删除账户后重新注册。',
       'common.resource_stemina': '開拓力',
       'common.resource_resin': '樹脂',
       'common.resource_energy': '電池',
