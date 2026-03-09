@@ -21,6 +21,7 @@ import { httpBE } from '@src/shared/utils/http';
 import {
   EnergyInfo,
   AccountInfoType,
+  GameRoleType,
   TokenType,
   MessageType,
   ResinInfo,
@@ -122,6 +123,18 @@ export const characterListQuery = ({ gameBiz, token }: GetCharacterProps) => {
       return await getCharacter({ token, gameBiz });
     },
     queryKey: ['characterList', token.ltoken, token.ltuid],
+  });
+};
+
+// 로그인 계정의 전체 게임 role 목록 조회
+export const gameRolesQuery = () => {
+  return queryOptions({
+    queryFn: async () => {
+      return await requestMessage<void, GameRoleType[]>({
+        data: { type: MessageType.GetGameRoles },
+      });
+    },
+    queryKey: ['gameRoles'],
   });
 };
 

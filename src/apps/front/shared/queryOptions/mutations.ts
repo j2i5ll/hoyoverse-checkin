@@ -39,9 +39,81 @@ export const addAccountMutation = () => ({
     if (!success) {
       throw new AddAccountError();
     }
+
+    await requestMessage<void, void>({
+      data: { type: MessageType.ClearCookie },
+    });
+
     return checkInResult;
   },
   mutationKey: ['addAccountMutation'],
+});
+
+export const addMultipleAccountsMutation = () => ({
+  mutationFn: async ({
+    email,
+    actIds,
+  }: {
+    email: string;
+    actIds: string[];
+  }) => {
+    const { ltoken, ltuid } = await requestMessage<void, GetCookieOutput>({
+      data: { type: MessageType.GetCookie },
+    });
+
+    const results: Array<{
+      actId: string;
+      success: boolean;
+      checkInResult?: CallCheckInApiOutput[];
+      error?: string;
+    }> = [];
+
+    for (const actId of actIds) {
+      try {
+        const game = GAME_INFO_LIST.find((game) => game.actId === actId);
+        if (!game) {
+          results.push({ actId, success: false, error: 'Unknown game' });
+          continue;
+        }
+        const { checkInAPIUrl } = game;
+
+        const checkInResult = await requestMessage<
+          CallCheckInApiInput,
+          CallCheckInApiOutput[]
+        >({
+          data: {
+            type: MessageType.CheckIn,
+            data: [{ actId, checkInAPIUrl, ltoken, ltuid }],
+          },
+        });
+
+        const { success } = await requestMessage<
+          AddAccountInput,
+          AddAccountOutput
+        >({
+          data: {
+            type: MessageType.AddAccount,
+            data: { email, actId },
+          },
+        });
+
+        results.push({ actId, success, checkInResult });
+      } catch (e) {
+        results.push({
+          actId,
+          success: false,
+          error: e instanceof Error ? e.message : 'Unknown error',
+        });
+      }
+    }
+
+    await requestMessage<void, void>({
+      data: { type: MessageType.ClearCookie },
+    });
+
+    return results;
+  },
+  mutationKey: ['addMultipleAccountsMutation'],
 });
 
 // 체크인 수행

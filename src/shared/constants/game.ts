@@ -56,8 +56,7 @@ export const GAME_INFO_LIST: GameItemType[] = [
     checkInUrl:
       'https://act.hoyolab.com/bbs/event/signin/zzz/e202406031448091.html?act_id=',
     checkInAPIUrl: 'https://sg-act-nap-api.hoyolab.com/event/luna/zzz/os/sign',
-    infoUrl:
-      'https://sg-act-nap-api.hoyolab.com/event/luna/zzz/os/info?act_id=',
+    infoUrl: 'https://sg-public-api.hoyolab.com/event/luna/zzz/os/info?act_id=',
     resourceCheckable: true,
     accountList: [],
   },

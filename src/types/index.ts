@@ -87,7 +87,19 @@ export const enum MessageType {
   GetCheckInTargetList = 'getCheckInTargetList',
   GetStorage = 'getStorage',
   SetStorage = 'setStorage',
+  ClearCookie = 'clearCookie',
+  GetGameRoles = 'getGameRoles',
 }
+
+export type GameRoleType = {
+  gameId: number;
+  gameName: string;
+  gameRoleId: string;
+  nickname: string;
+  regionName: string;
+  region: string;
+  level: number;
+};
 
 export type RequestMessageType<T> = {
   type: MessageType;

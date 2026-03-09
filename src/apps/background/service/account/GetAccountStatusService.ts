@@ -4,7 +4,7 @@ import type {
   GetAccountStatusOutput,
 } from '@background/domain/account/port/GetAccountStatusPort';
 import { accountStore } from '@background/store/accountStore';
-import { GAME_INFO_LIST } from '@src/shared/constants/game';
+import { GAME_INFO_LIST, GameActId } from '@src/shared/constants/game';
 import { http } from '@src/shared/utils/http';
 import { ApiRetCode } from '@src/shared/constants/api-ret-code';
 import { injectable } from 'tsyringe';
@@ -31,8 +31,13 @@ export class GetAccountStatusService implements GetAccountStatusUsecase {
     }
 
     if (currentPageGame.infoUrl) {
+      const headers: Record<string, string> = {};
+      if (actId === GameActId.Zzz) {
+        headers['x-rpc-signgame'] = 'zzz';
+      }
       const { retcode } = await http(`${currentPageGame.infoUrl}${actId}`, {
         method: 'GET',
+        headers,
       });
       if (retcode === ApiRetCode.NoCharacter) {
         return 'NO_CHARACTER_IN_GAME';

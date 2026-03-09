@@ -7,12 +7,14 @@ interface TooltipFooterProps extends WithTranslation {
   onClose?: () => void;
   onConfirm?: () => void;
   confirmText?: string;
+  confirmDisabled?: boolean;
 }
 function TooltipFooter({
   onClose,
   onConfirm,
   t,
   confirmText,
+  confirmDisabled,
 }: TooltipFooterProps) {
   const { setIsTooltipShow } = useContext(ToggleTooltipContext);
   return (
@@ -21,6 +23,7 @@ function TooltipFooter({
         <Button
           className="h-[36px] rounded-[6px] px-[16px] py-[8px] text-[16px]"
           onClick={() => onConfirm?.()}
+          disabled={confirmDisabled}
         >
           {confirmText}
         </Button>

@@ -19,6 +19,17 @@ export default {
       'content.email_added': '<b>{{email}}</b> 계정이 추가되었습니다.',
       'content.confirm_add_email': '<b>{{email}}</b> 계정을 등록하시겠습니까?',
       'content.not_supported_game': '아직 지원하지 않는 게임입니다.😥',
+      'content.select_game_accounts':
+        '<b>{{email}}</b>의 게임 계정을 선택하세요.',
+      'content.already_registered': '등록됨',
+      'content.all_accounts_registered':
+        '모든 계정이 이미 등록되어 있습니다.',
+      'content.accounts_added': '{{count}}개의 계정이 추가되었습니다.',
+      'content.no_available_games': '등록 가능한 게임이 없습니다.',
+      'content.register_other_games': '다른 게임도 등록하기',
+      'content.partial_registration_failed':
+        '일부 계정 등록에 실패했습니다. ({{successCount}}/{{totalCount}})',
+      'common.register_selected': '선택 등록',
       'common.account_registration': '계정 등록하기',
       'options.no_account_description': '등록된 계정이 없습니다.🤔',
       'options.confirm_delete_account': '정말 삭제하시겠습니까?',
@@ -108,6 +119,17 @@ export default {
       'content.confirm_add_email':
         'Do you want to register the <b>{{email}}</b> account?',
       'content.not_supported_game': 'This game is not yet supported.😥',
+      'content.select_game_accounts':
+        'Select game accounts for <b>{{email}}</b>.',
+      'content.already_registered': 'Registered',
+      'content.all_accounts_registered':
+        'All accounts are already registered.',
+      'content.accounts_added': '{{count}} account(s) have been added.',
+      'content.no_available_games': 'No games available for registration.',
+      'content.register_other_games': 'Register other games',
+      'content.partial_registration_failed':
+        'Some accounts failed to register. ({{successCount}}/{{totalCount}})',
+      'common.register_selected': 'Register Selected',
       'common.account_registration': 'Register account️',
       'options.no_account_description': 'No registered account.🤔',
       'options.confirm_delete_account': 'Are you sure you want to delete it?',
@@ -199,6 +221,18 @@ export default {
       'content.confirm_add_email':
         '<b>{{email}}</b> のアカウントを登録しますか？',
       'content.not_supported_game': 'まだサポートされていないゲームです。😥',
+      'content.select_game_accounts':
+        '<b>{{email}}</b>のゲームアカウントを選択してください。',
+      'content.already_registered': '登録済み',
+      'content.all_accounts_registered':
+        'すべてのアカウントはすでに登録されています。',
+      'content.accounts_added':
+        '{{count}}つのアカウントが追加されました。',
+      'content.no_available_games': '登録可能なゲームがありません。',
+      'content.register_other_games': '他のゲームも登録する',
+      'content.partial_registration_failed':
+        '一部のアカウント登録に失敗しました。({{successCount}}/{{totalCount}})',
+      'common.register_selected': '選択を登録',
       'common.account_registration': 'アカウントを登録する️',
       'options.no_account_description': '登録されたアカウントがありません。🤔',
       'options.confirm_delete_account': '本当に削除しますか？',
@@ -281,6 +315,16 @@ export default {
       'content.email_added': '已添加 <b>{{email}}</b> 账户。',
       'content.confirm_add_email': '您确定要注册 <b>{{email}}</b> 账户吗？',
       'content.not_supported_game': '我们尚未支持这款游戏。😥',
+      'content.select_game_accounts':
+        '请选择<b>{{email}}</b>的游戏账户。',
+      'content.already_registered': '已注册',
+      'content.all_accounts_registered': '所有账户均已注册。',
+      'content.accounts_added': '已添加{{count}}个账户。',
+      'content.no_available_games': '没有可注册的游戏。',
+      'content.register_other_games': '注册其他游戏',
+      'content.partial_registration_failed':
+        '部分账户注册失败。({{successCount}}/{{totalCount}})',
+      'common.register_selected': '注册所选',
       'common.account_registration': '注册账户',
       'options.no_account_description': '没有已注册的账户。🤔',
       'options.confirm_delete_account': '您确定要删除吗？',

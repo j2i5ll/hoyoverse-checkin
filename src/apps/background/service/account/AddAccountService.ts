@@ -5,7 +5,7 @@ import type {
 } from '@background/domain/account/port/AddAccountPort';
 import { accountStore } from '@background/store/accountStore';
 import { injectable } from 'tsyringe';
-import { getLoginCookie, clearLoginCookie } from '@background/helpers/cookie';
+import { getLoginCookie } from '@background/helpers/cookie';
 @injectable()
 export class AddAccountService implements AddAccountUsecase {
   async execute({ actId, email }: AddAccountInput): Promise<AddAccountOutput> {
@@ -19,7 +19,6 @@ export class AddAccountService implements AddAccountUsecase {
       lastCheckInMessage: '',
       lastCheckInDate: '',
     });
-    await clearLoginCookie().catch(() => {});
     return { success: true };
   }
 }

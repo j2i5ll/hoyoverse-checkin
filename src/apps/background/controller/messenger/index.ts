@@ -10,6 +10,8 @@ import type { CallCheckInApiInput } from '@background/domain/check-in/port/CallC
 import type { GetAccountStatusInput } from '@background/domain/account/port/GetAccountStatusPort';
 import type { AddAccountInput } from '@background/domain/account/port/AddAccountPort';
 import { MessageResponseType, MessageType, RequestMessageType } from '@src/types';
+import { clearLoginCookie, getLoginCookie } from '@background/helpers/cookie';
+import { getAllGameRoles } from '@src/shared/api/getGameRecordCard';
 import { GetStorageUsecase } from '@background/domain/storage/usecase/GetStorageUsecase';
 import { SetStorageUsecase } from '@background/domain/storage/usecase/SetStorageUsecase';
 import { GetStorageInput } from '@background/domain/storage/port/GetStoragePort';
@@ -43,7 +45,7 @@ export class MessengerController {
       return true;
     });
   }
-  private processResponse(request: RequestMessageType<AvailRequestData>) {
+  private async processResponse(request: RequestMessageType<AvailRequestData>) {
     switch (request.type) {
       case MessageType.GetCookie:
         return this.getCookieService.execute();
@@ -63,6 +65,12 @@ export class MessengerController {
         return this.getStorageService.execute(request.data as GetStorageInput);
       case MessageType.SetStorage:
         return this.setStorageService.execute(request.data as SetStorageInput);
+      case MessageType.ClearCookie:
+        return clearLoginCookie();
+      case MessageType.GetGameRoles: {
+        const token = await getLoginCookie();
+        return getAllGameRoles({ token });
+      }
       default:
         return Promise.resolve();
       }

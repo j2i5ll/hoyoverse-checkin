@@ -16,7 +16,7 @@ export default async function getCurrentEnergy({
   const ds = getOsDS();
 
   return httpWithCookie(
-    `https://sg-act-nap-api.hoyolab.com/event/game_record_zzz/api/zzz/note?server=${region}&role_id=${gameRoleId}`,
+    `https://sg-public-api.hoyolab.com/event/game_record_zzz/api/zzz/note?server=${region}&role_id=${gameRoleId}`,
     {
       method: 'GET',
       headers: {
