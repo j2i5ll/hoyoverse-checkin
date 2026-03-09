@@ -37,8 +37,9 @@ const AccountStatusCard = withTranslation()(function ({
   const { mutate } = useMutation({
     ...addAccountMutation(),
     onSuccess: async (checkInResult) => {
-      setAddResult(true);
       await updateLastCheckIn(checkInResult);
+      setAddResult(true);
+      location.reload();
     },
     throwOnError: true,
   });
