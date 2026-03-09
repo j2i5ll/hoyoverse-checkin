@@ -39,9 +39,6 @@ export class GetAccountStatusService implements GetAccountStatusUsecase {
         method: 'GET',
         headers,
       });
-      if (retcode === ApiRetCode.NoCharacter) {
-        return 'NO_CHARACTER_IN_GAME';
-      }
     }
 
     const hasToken = accountList.find(

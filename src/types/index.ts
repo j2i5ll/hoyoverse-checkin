@@ -45,14 +45,12 @@ export type CheckInTargetType = {
  * NEW : 아직 storage에 저장되지 않은 계정
  * NOT_LOGIN : 로그인하지 않았음
  * NOT_SUPPORTED_GAME : 지원하지 않는 게임에 접속한 계정
- * NO_CHARACTER_IN_GAME : 게임내 캐릭터가 없는 계정
  */
 export type AccountStatusType =
   | 'EXIST'
   | 'NEW'
   | 'NOT_LOGIN'
-  | 'NOT_SUPPORTED_GAME'
-  | 'NO_CHARACTER_IN_GAME';
+  | 'NOT_SUPPORTED_GAME';
 
 export type GameEmailType = {
   email: string;

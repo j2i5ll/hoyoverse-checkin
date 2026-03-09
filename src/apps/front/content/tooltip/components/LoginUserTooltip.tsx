@@ -3,7 +3,6 @@ import { useMemo, useState } from 'react';
 import { useAccountList } from '@front/shared/hooks/useAccountList';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import AddedAccountCard from './tooltip-body/AddedAccountCard';
-import NoCharacterCard from './tooltip-body/NoCharacterCard';
 import NotSupportedCard from './tooltip-body/NotSupportedCard';
 import SelectGameAccountCard from './tooltip-body/SelectGameAccountCard';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -105,9 +104,6 @@ const AccountStatusCard = withTranslation()(function ({
     );
   }
 
-  if (accountStatus === 'NO_CHARACTER_IN_GAME') {
-    return <NoCharacterCard />;
-  }
   if (accountStatus === 'NOT_SUPPORTED_GAME') {
     return <NotSupportedCard />;
   }

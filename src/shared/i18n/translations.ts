@@ -6,8 +6,6 @@ export default {
       'game.honkai3rd': '붕괴3rd',
       'game.zzz': '젠레스 존 제로',
       'content.checking_account_status': '계정 상태를 확인중입니다.',
-      'content.no_character_in_game':
-        '접속하신 게임 내에 캐릭터가 존재하지 않습니다.',
       'content.need_login': '로그인 후 이용해주세요.',
       'content.need_login_to_register': '로그인 후 계정을 등록하세요.',
       'content.registered_accounts_title':
@@ -104,8 +102,6 @@ export default {
       'game.honkai3rd': 'Honkai Impact 3rd',
       'game.zzz': 'Zenless Zone Zero',
       'content.checking_account_status': 'Checking account status.',
-      'content.no_character_in_game':
-        'There are no characters in the game you are logged into.',
       'content.need_login': 'Please use after logging in.',
       'content.need_login_to_register':
         'Please log in to register an account.',
@@ -206,8 +202,6 @@ export default {
       'game.honkai3rd': '崩壊3rd',
       'game.zzz': 'ゼンレスゾーンゼロ',
       'content.checking_account_status': 'アカウント状況を確認中です。',
-      'content.no_character_in_game':
-        'あなたがログインしているゲームにはキャラクターが存在しません。',
       'content.need_login': 'ログイン後にご利用ください。',
       'content.need_login_to_register':
         'ログインしてアカウントを登録してください。',
@@ -306,7 +300,6 @@ export default {
       'game.honkai3rd': 'Honkai Impact 3rd',
       'game.zzz': '絕區零',
       'content.checking_account_status': '正在检查账户状态。',
-      'content.no_character_in_game': '您登录的游戏中没有角色。',
       'content.need_login': '请登录后使用。',
       'content.need_login_to_register': '请登录后注册账户。',
       'content.registered_accounts_title': '以下账户已注册自动签到',
