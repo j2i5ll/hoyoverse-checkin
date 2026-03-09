@@ -8,7 +8,14 @@ import {
 } from '@front/external/components/ui/card';
 import { APP_NAME } from '@src/shared/constants/text';
 import { GAME_INFO_LIST } from '@src/shared/constants/game';
-import { ExternalLink, Pin, Settings, UserPlus, Zap } from 'lucide-react';
+import {
+  ExternalLink,
+  Pin,
+  Settings,
+  TriangleAlert,
+  UserPlus,
+  Zap,
+} from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
 import { ExtensionIcon } from '@front/options/components/ExtensionIcon';
@@ -70,6 +77,17 @@ const Onboarding = () => {
                   <ExternalLink className="h-3 w-3" />
                 </Button>
               ))}
+            </div>
+            <div className="mt-3 flex items-start gap-2 rounded-lg bg-muted p-3 text-sm">
+              <TriangleAlert className="mt-0.5 h-4 w-4 shrink-0" />
+              <div>
+                <p className="font-semibold">
+                  {t('onboarding.register_warning_title')}
+                </p>
+                <p className="mt-0.5 whitespace-pre-line">
+                  {t('onboarding.register_warning_desc')}
+                </p>
+              </div>
             </div>
           </CardContent>
         </Card>

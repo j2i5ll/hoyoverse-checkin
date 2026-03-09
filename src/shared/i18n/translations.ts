@@ -71,6 +71,9 @@ export default {
         '등록된 계정은 설정 페이지에서 관리할 수 있습니다.',
       'onboarding.go_to_settings': '설정 페이지로 이동',
       'onboarding.get_started': '시작하기',
+      'onboarding.register_warning_title': '잠깐만요!',
+      'onboarding.register_warning_desc':
+        'Hoyolab이나 출석체크 사이트에서 로그아웃하게 되면 Hoyoverse Check-in에 등록된 계정의 인증이 만료될수 있습니다.',
       'laqoos.title':
         'LaQoos는 HoYoverse게임들의<br/>캐릭터 및 게임전적 통계를 제공합니다',
       'laqoos.subtitle':
@@ -171,6 +174,9 @@ export default {
         'Manage your registered accounts in the settings page.',
       'onboarding.go_to_settings': 'Go to Settings',
       'onboarding.get_started': 'Get Started',
+      'onboarding.register_warning_title': 'Wait!',
+      'onboarding.register_warning_desc':
+        'If you log out from Hoyolab or the check-in site, the authentication of accounts registered in Hoyoverse Check-in may expire.',
       'laqoos.title':
         'LaQoos provides character and<br/>game record statistics for HoYoverse games',
       'laqoos.subtitle':
@@ -269,6 +275,9 @@ export default {
         '登録されたアカウントは設定ページで管理できます。',
       'onboarding.go_to_settings': '設定ページへ移動',
       'onboarding.get_started': '始める',
+      'onboarding.register_warning_title': 'ちょっと待ってください！',
+      'onboarding.register_warning_desc':
+        'Hoyolabやチェックインサイトからログアウトすると、Hoyoverse Check-inに登録されたアカウントの認証が期限切れになる場合があります。',
       'laqoos.title':
         'LaQoosはHoYoverseゲームの<br/>キャラクターとゲーム戦績の統計を提供します',
       'laqoos.subtitle':
@@ -359,6 +368,9 @@ export default {
       'onboarding.manage_account_desc': '已注册的账户可以在设置页面中管理。',
       'onboarding.go_to_settings': '前往设置页面',
       'onboarding.get_started': '开始使用',
+      'onboarding.register_warning_title': '请注意！',
+      'onboarding.register_warning_desc':
+        '如果您从Hoyolab或签到网站登出，Hoyoverse Check-in中注册的账户认证可能会过期。',
       'laqoos.title': 'LaQoos提供HoYoverse游戏的<br/>角色和游戏战绩统计',
       'laqoos.subtitle':
         'LaQoos基于HoYoverse游戏战绩提供各种统计数据。<br/>查看统计信息并获取洞察。',
