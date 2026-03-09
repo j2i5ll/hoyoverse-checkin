@@ -1,6 +1,7 @@
 export const ALARM_NAMES = {
   CHECK_IN: 'checkin-interval',
   SCRAP: 'scrap-interval',
+  UPDATE: 'update-check-interval',
 } as const;
 
 type AlarmHandler = () => Promise<void> | void;

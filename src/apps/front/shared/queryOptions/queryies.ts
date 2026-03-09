@@ -61,7 +61,6 @@ export const accountStatusQuery = ({
         throw new AccountStatusError();
       }
     },
-    enabled: accountList.length > 0,
     queryKey: ['getAccountStatus', actId, ...accountListKey],
   });
 };

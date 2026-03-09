@@ -7,6 +7,7 @@ import { DIContainer } from './dependency';
 import { initSentry } from '@src/shared/utils/sentry';
 import { ga } from '@src/shared/ga';
 import { ScrapController } from '@background/controller/scrap';
+import { UpdateController } from '@background/controller/update';
 import { alarmManager } from '@background/alarm/AlarmManager';
 ga.init('bg');
 initSentry();
@@ -34,6 +35,9 @@ badgeController.listenStorageChange();
 
 const scrapController = DIContainer.resolve(ScrapController);
 scrapController.start();
+
+const updateController = new UpdateController();
+updateController.start();
 
 alarmManager.init();
 
