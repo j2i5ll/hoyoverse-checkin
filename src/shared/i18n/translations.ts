@@ -23,6 +23,8 @@ export default {
       'content.all_accounts_registered':
         '모든 계정이 이미 등록되어 있습니다.',
       'content.accounts_added': '{{count}}개의 계정이 추가되었습니다.',
+      'content.confirm_registration':
+        'Hoyoverse Check-in에 계정을 등록하시겠습니까?',
       'content.no_available_games': '등록 가능한 게임이 없습니다.',
       'content.register_other_games': '다른 게임도 등록하기',
       'content.partial_registration_failed':
@@ -32,6 +34,7 @@ export default {
       'options.no_account_description': '등록된 계정이 없습니다.🤔',
       'options.confirm_delete_account': '정말 삭제하시겠습니까?',
       'common.checkin_time': '{{time}} 출첵',
+      'common.confirm': '확인',
       'common.close': '닫기',
       'common.registration': '등록하기',
       'common.no_character': '게임 내에 캐릭터가 없습니다.',
@@ -124,6 +127,8 @@ export default {
       'content.all_accounts_registered':
         'All accounts are already registered.',
       'content.accounts_added': '{{count}} account(s) have been added.',
+      'content.confirm_registration':
+        'Would you like to register an account with Hoyoverse Check-in?',
       'content.no_available_games': 'No games available for registration.',
       'content.register_other_games': 'Register other games',
       'content.partial_registration_failed':
@@ -133,6 +138,7 @@ export default {
       'options.no_account_description': 'No registered account.🤔',
       'options.confirm_delete_account': 'Are you sure you want to delete it?',
       'common.checkin_time': '{{time}} check-in',
+      'common.confirm': 'Confirm',
       'common.close': 'Close',
       'common.registration': 'Register',
       'common.no_character': 'There is no character in the game.',
@@ -228,6 +234,8 @@ export default {
         'すべてのアカウントはすでに登録されています。',
       'content.accounts_added':
         '{{count}}つのアカウントが追加されました。',
+      'content.confirm_registration':
+        'Hoyoverse Check-inにアカウントを登録しますか？',
       'content.no_available_games': '登録可能なゲームがありません。',
       'content.register_other_games': '他のゲームも登録する',
       'content.partial_registration_failed':
@@ -237,6 +245,7 @@ export default {
       'options.no_account_description': '登録されたアカウントがありません。🤔',
       'options.confirm_delete_account': '本当に削除しますか？',
       'common.checkin_time': '{{time}} のチェックイン',
+      'common.confirm': '確認',
       'common.close': '閉じる',
       'common.registration': '登録する',
       'common.no_character': 'ゲームの中にキャラクターがいません。',
@@ -322,6 +331,8 @@ export default {
       'content.already_registered': '已注册',
       'content.all_accounts_registered': '所有账户均已注册。',
       'content.accounts_added': '已添加{{count}}个账户。',
+      'content.confirm_registration':
+        '您要在Hoyoverse Check-in中注册账户吗？',
       'content.no_available_games': '没有可注册的游戏。',
       'content.register_other_games': '注册其他游戏',
       'content.partial_registration_failed':
@@ -331,6 +342,7 @@ export default {
       'options.no_account_description': '没有已注册的账户。🤔',
       'options.confirm_delete_account': '您确定要删除吗？',
       'common.checkin_time': '{{time}} 签到',
+      'common.confirm': '确认',
       'common.close': '关闭',
       'common.registration': '注册',
       'common.no_character': '游戏中没有角色。',
