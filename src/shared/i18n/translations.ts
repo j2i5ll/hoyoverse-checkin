@@ -74,7 +74,7 @@ export default {
       'onboarding.get_started': '시작하기',
       'onboarding.register_warning_title': '잠깐만요!',
       'onboarding.register_warning_desc':
-        'Hoyolab이나 출석체크 사이트에서 로그아웃하게 되면 Hoyoverse Check-in에 등록된 계정의 인증이 만료될수 있습니다.',
+        '드물게 등록된 계정의 인증이 만료되는 경우가 있습니다.\n현재까지 확인된 바로는 해당 계정으로 Hoyolab에서 로그아웃할 때 발생하는 것으로 파악됩니다.\n인증이 만료된 경우 계정을 다시 등록해 주시기 바랍니다.',
       'laqoos.title':
         'LaQoos는 HoYoverse게임들의<br/>캐릭터 및 게임전적 통계를 제공합니다',
       'laqoos.subtitle':
@@ -178,7 +178,7 @@ export default {
       'onboarding.get_started': 'Get Started',
       'onboarding.register_warning_title': 'Wait!',
       'onboarding.register_warning_desc':
-        'If you log out from Hoyolab or the check-in site, the authentication of accounts registered in Hoyoverse Check-in may expire.',
+        'In rare cases, the authentication of registered accounts may expire.\nBased on our findings, this occurs when you log out of Hoyolab with the registered account.\nIf authentication has expired, please re-register your account.',
       'laqoos.title':
         'LaQoos provides character and<br/>game record statistics for HoYoverse games',
       'laqoos.subtitle':
@@ -280,7 +280,7 @@ export default {
       'onboarding.get_started': '始める',
       'onboarding.register_warning_title': 'ちょっと待ってください！',
       'onboarding.register_warning_desc':
-        'Hoyolabやチェックインサイトからログアウトすると、Hoyoverse Check-inに登録されたアカウントの認証が期限切れになる場合があります。',
+        'まれに登録されたアカウントの認証が期限切れになる場合があります。\n現時点で確認された限りでは、該当アカウントでHoyolabからログアウトした際に発生することが判明しています。\n認証が期限切れになった場合は、アカウントを再登録してください。',
       'laqoos.title':
         'LaQoosはHoYoverseゲームの<br/>キャラクターとゲーム戦績の統計を提供します',
       'laqoos.subtitle':
@@ -375,7 +375,7 @@ export default {
       'onboarding.get_started': '开始使用',
       'onboarding.register_warning_title': '请注意！',
       'onboarding.register_warning_desc':
-        '如果您从Hoyolab或签到网站登出，Hoyoverse Check-in中注册的账户认证可能会过期。',
+        '在极少数情况下，已注册账户的认证可能会过期。\n根据目前的调查，这种情况发生在使用已注册账户从Hoyolab登出时。\n如果认证已过期，请重新注册您的账户。',
       'laqoos.title': 'LaQoos提供HoYoverse游戏的<br/>角色和游戏战绩统计',
       'laqoos.subtitle':
         'LaQoos基于HoYoverse游戏战绩提供各种统计数据。<br/>查看统计信息并获取洞察。',

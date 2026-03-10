@@ -12,7 +12,7 @@ import {
   ExternalLink,
   Pin,
   Settings,
-  // TriangleAlert,
+  TriangleAlert,
   UserPlus,
   Zap,
 } from 'lucide-react';
@@ -78,7 +78,6 @@ const Onboarding = () => {
                 </Button>
               ))}
             </div>
-            {/*
             <div className="mt-3 flex items-start gap-2 rounded-lg bg-muted p-3 text-sm">
               <TriangleAlert className="mt-0.5 h-4 w-4 shrink-0" />
               <div>
@@ -90,7 +89,6 @@ const Onboarding = () => {
                 </p>
               </div>
             </div>
-            */}
           </CardContent>
         </Card>
 
