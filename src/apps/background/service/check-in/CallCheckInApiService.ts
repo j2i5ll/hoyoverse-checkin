@@ -57,18 +57,21 @@ export class CallCheckInApiService implements CallCheckInApiUsecase {
       const { retcode, message } = resp;
       switch (retcode) {
         case ApiRetCode.Success:
-          ga.fireEvent('체크인성공', {act_id: actId})
+          ga.fireEvent('체크인성공', { act_id: actId });
           checkInResultList.push(this.successResponse(resp, actId, ltuid));
           break;
         case ApiRetCode.AlreadyCheckIn:
-          ga.fireEvent('이미체크인완료', {act_id: actId})
+          ga.fireEvent('이미체크인완료', { act_id: actId });
           checkInResultList.push(this.successResponse(resp, actId, ltuid));
           break;
         default: {
-          captureApiException(new CheckInError(`${retcode}: ${message}`), url)
+          captureApiException(new CheckInError(`${retcode}: ${message}`), url);
           const errorMsgKey = ErrorMessageKey[retcode as ApiRetCode];
           let msg = errorMsgKey ? i18n.t(errorMsgKey) : message;
-          if (retcode === ApiRetCode.AuthExpired) {
+          if (
+            retcode === ApiRetCode.AuthExpired ||
+            retcode === ApiRetCode.NotLoggedIn
+          ) {
             msg = `${msg}\n${i18n.t('common.re_register_account')}`;
           }
           checkInResultList.push({
