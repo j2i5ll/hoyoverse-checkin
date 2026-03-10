@@ -1,4 +1,4 @@
-import { getCurrentActId } from '@src/shared/utils/url';
+import { getCurrentActId, removeRegistrationFlag } from '@src/shared/utils/url';
 import { useMemo, useState } from 'react';
 import { useAccountList } from '@front/shared/hooks/useAccountList';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -68,7 +68,7 @@ const AccountStatusCard = withTranslation()(function ({
         }
       }
       setAddResult(successResults.length);
-      location.reload();
+      window.location.replace(removeRegistrationFlag());
     },
     throwOnError: true,
   });

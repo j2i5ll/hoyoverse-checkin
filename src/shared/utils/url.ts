@@ -20,3 +20,9 @@ export const buildRegistrationUrl = (): string => {
   url.searchParams.set('h', 'true');
   return url.toString();
 };
+
+export const removeRegistrationFlag = (): string => {
+  const url = new URL(window.location.href);
+  url.searchParams.delete('h');
+  return url.toString();
+};
