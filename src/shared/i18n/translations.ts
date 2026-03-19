@@ -19,7 +19,7 @@ export default {
         '<b>{{email}}</b>의 게임 계정을 선택하세요.',
       'content.already_registered': '등록됨',
       'content.all_accounts_registered':
-        '모든 계정이 이미 등록되어 있습니다.',
+        '로그인한 계정의 모든 게임 계정이 이미 등록되어 있습니다.',
       'content.accounts_added': '{{count}}개의 계정이 추가되었습니다.',
       'content.confirm_registration':
         'Hoyoverse Check-in에 계정을 등록하시겠습니까?',
@@ -121,7 +121,7 @@ export default {
         'Select game accounts for <b>{{email}}</b>.',
       'content.already_registered': 'Registered',
       'content.all_accounts_registered':
-        'All accounts are already registered.',
+        'All game accounts for the logged-in account are already registered.',
       'content.accounts_added': '{{count}} account(s) have been added.',
       'content.confirm_registration':
         'Would you like to register an account with Hoyoverse Check-in?',
@@ -225,7 +225,7 @@ export default {
         '<b>{{email}}</b>のゲームアカウントを選択してください。',
       'content.already_registered': '登録済み',
       'content.all_accounts_registered':
-        'すべてのアカウントはすでに登録されています。',
+        'ログイン中のアカウントのすべてのゲームアカウントはすでに登録されています。',
       'content.accounts_added':
         '{{count}}つのアカウントが追加されました。',
       'content.confirm_registration':
@@ -322,7 +322,7 @@ export default {
       'content.select_game_accounts':
         '请选择<b>{{email}}</b>的游戏账户。',
       'content.already_registered': '已注册',
-      'content.all_accounts_registered': '所有账户均已注册。',
+      'content.all_accounts_registered': '已登录账户的所有游戏账户均已注册。',
       'content.accounts_added': '已添加{{count}}个账户。',
       'content.confirm_registration':
         '您要在Hoyoverse Check-in中注册账户吗？',
