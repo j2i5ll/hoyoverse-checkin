@@ -1,8 +1,7 @@
 import { getCurrentActId, removeRegistrationFlag } from '@src/shared/utils/url';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { useAccountList } from '@front/shared/hooks/useAccountList';
 import { WithTranslation, withTranslation } from 'react-i18next';
-import AddedAccountCard from './tooltip-body/AddedAccountCard';
 import NotSupportedCard from './tooltip-body/NotSupportedCard';
 import SelectGameAccountCard from './tooltip-body/SelectGameAccountCard';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -28,7 +27,6 @@ const AccountStatusCard = withTranslation()(function ({
   email,
   t,
 }: AccountStatusProps) {
-  const [addResult, setAddResult] = useState<number | false>(false);
   const { updateLastCheckIn, accountList } = useAccountList();
 
   const { data: accountStatus } = useQuery({
@@ -67,7 +65,10 @@ const AccountStatusCard = withTranslation()(function ({
           await updateLastCheckIn(result.checkInResult);
         }
       }
-      setAddResult(successResults.length);
+      sessionStorage.setItem(
+        '__hoyo_checkin_registration_result',
+        JSON.stringify({ count: successResults.length }),
+      );
       window.location.replace(removeRegistrationFlag());
     },
     throwOnError: true,
@@ -76,10 +77,6 @@ const AccountStatusCard = withTranslation()(function ({
   const handleMultiRegister = (selectedActIds: string[]) => {
     multiMutate({ email, actIds: selectedActIds });
   };
-
-  if (addResult !== false) {
-    return <AddedAccountCard count={addResult} />;
-  }
 
   if (accountStatus === 'EXIST' || accountStatus === 'NEW') {
     if (isRolesLoading || !roles) {
