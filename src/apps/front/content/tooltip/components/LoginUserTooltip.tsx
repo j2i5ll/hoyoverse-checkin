@@ -78,7 +78,7 @@ const AccountStatusCard = withTranslation()(function ({
   };
 
   if (addResult !== false) {
-    return <AddedAccountCard email={email} count={addResult} />;
+    return <AddedAccountCard count={addResult} />;
   }
 
   if (accountStatus === 'EXIST' || accountStatus === 'NEW') {
