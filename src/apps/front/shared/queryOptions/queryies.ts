@@ -17,6 +17,7 @@ import getCurrentStamina from '@src/shared/api/getCurrentStamina';
 import getGameRecordCard from '@src/shared/api/getGameRecordCard';
 import { ApiRetCode } from '@src/shared/constants/api-ret-code';
 import { GameId, GameKey } from '@src/shared/constants/game';
+import { resolveDisplayName } from '@src/shared/utils/accountIdentifier';
 import { httpBE } from '@src/shared/utils/http';
 import {
   EnergyInfo,
@@ -109,8 +110,7 @@ export const loginUserEmailQuery = () => {
       });
       const { ltuid } = rawTokenList;
       const res = await getAccountInfo({ ltuid });
-      const { email } = res.data;
-      return email;
+      return resolveDisplayName(res.data);
     },
     queryKey: ['loginUserEmail'],
   });
