@@ -1,9 +1,10 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import TooltipLayout from '@front/content/tooltip/components/TooltipLayer';
 import TooltipFooter from '../tooltip-footer';
 import { GameRoleType } from '@src/types';
 import { gameIdToActId, getGameInfoByGameId } from '@src/shared/utils/gameMapping';
+import { ga } from '@src/shared/ga';
 
 interface SelectGameAccountCardProps extends WithTranslation {
   email: string;
@@ -61,7 +62,22 @@ function SelectGameAccountCard({
 
   const handleRegister = () => {
     onRegister(Array.from(selectedActIds));
+    for (const actId of selectedActIds) {
+      ga.fireEvent('click_계정등록', { act_id: actId });
+    }
   };
+
+  useEffect(() => {
+    if (allRegistered) {
+      ga.fireEvent('view_이미등록', {
+        act_ids: rolesWithActId.map((r) => r.actId).join(','),
+      });
+    } else {
+      ga.fireEvent('view_계정등록', {
+        act_ids: rolesWithActId.map((r) => r.actId).join(','),
+      });
+    }
+  }, []);
 
   if (rolesWithActId.length === 0) {
     return (
