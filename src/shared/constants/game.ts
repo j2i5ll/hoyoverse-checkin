@@ -10,7 +10,7 @@ export enum GameKey {
 export const GameId = {
   [GameKey.Genshin]: 2,
   [GameKey.Starrail]: 6,
-  [GameKey.Honkai]: 0, // 사용되지 않음.
+  [GameKey.Honkai]: 1,
   [GameKey.ZZZ]: 8,
 };
 
