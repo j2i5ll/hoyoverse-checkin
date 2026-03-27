@@ -1,3 +1,4 @@
+import { TooManyRequestsError } from '@src/shared/errors/TooManyRequestsError';
 import { TokenType } from '@src/types';
 import { BE_URL } from '@src/shared/constants/url';
 import { captureException, captureApiException } from '@src/shared/utils/sentry';
@@ -6,6 +7,9 @@ import { JsonParseError } from '@src/shared/errors/JsonParseError';
 const MAX_RESPONSE_BODY_LENGTH = 300;
 
 async function parseJsonResponse(res: Response, url: string) {
+  if (res.status === 429) {
+    throw new TooManyRequestsError(url);
+  }
   const text = await res.text();
   try {
     return JSON.parse(text);
