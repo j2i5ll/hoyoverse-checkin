@@ -7,6 +7,8 @@ export enum ApiRetCode {
   NeedCaptcha = 5001,
   DataIsNotPublic = 10102,
   ServerMaintenance = 10307,
+  // HTTP status code (Hoyolab API retcode 아님)
+  TooManyRequests = 429,
 }
 
 export const ErrorMessageKey: Record<ApiRetCode, string> = {
@@ -18,4 +20,5 @@ export const ErrorMessageKey: Record<ApiRetCode, string> = {
   [ApiRetCode.AlreadyCheckIn]: '',
   [ApiRetCode.DataIsNotPublic]: '',
   [ApiRetCode.ServerMaintenance]: '',
+  [ApiRetCode.TooManyRequests]: 'common.too_many_requests',
 };
