@@ -13,6 +13,7 @@ import { captureApiException } from '@src/shared/utils/sentry';
 import { GameActId, GameKey } from '@src/shared/constants/game';
 import { CheckInError } from '@src/shared/error';
 import { ga } from '@src/shared/ga';
+import { TooManyRequestsError } from '@src/shared/errors/TooManyRequestsError';
 
 type ICheckInAPIResponse = {
   retcode: number;
@@ -43,44 +44,57 @@ export class CallCheckInApiService implements CallCheckInApiUsecase {
         headers['x-rpc-signgame'] = 'zzz';
       }
 
-      const url = `${checkInAPIUrl}?lang=${getUrlLocale()}`;
-      const resp = await httpWithCookie(
-        url,
-        {
-          credentials: 'include',
-          method: 'POST',
-          body: JSON.stringify({ act_id: actId }),
-          headers,
-        },
-        { ltoken, ltuid },
-      );
-      const { retcode, message } = resp;
-      switch (retcode) {
-        case ApiRetCode.Success:
-          ga.fireEvent('체크인성공', { act_id: actId });
-          checkInResultList.push(this.successResponse(resp, actId, ltuid));
-          break;
-        case ApiRetCode.AlreadyCheckIn:
-          ga.fireEvent('이미체크인완료', { act_id: actId });
-          checkInResultList.push(this.successResponse(resp, actId, ltuid));
-          break;
-        default: {
-          captureApiException(new CheckInError(`${retcode}: ${message}`), url);
-          const errorMsgKey = ErrorMessageKey[retcode as ApiRetCode];
-          let msg = errorMsgKey ? i18n.t(errorMsgKey) : message;
-          if (
-            retcode === ApiRetCode.AuthExpired ||
-            retcode === ApiRetCode.NotLoggedIn
-          ) {
-            msg = `${msg}\n${i18n.t('common.re_register_account')}`;
+      try {
+        const url = `${checkInAPIUrl}?lang=${getUrlLocale()}`;
+        const resp = await httpWithCookie(
+          url,
+          {
+            credentials: 'include',
+            method: 'POST',
+            body: JSON.stringify({ act_id: actId }),
+            headers,
+          },
+          { ltoken, ltuid },
+        );
+        const { retcode, message } = resp;
+        switch (retcode) {
+          case ApiRetCode.Success:
+            ga.fireEvent('체크인성공', { act_id: actId });
+            checkInResultList.push(this.successResponse(resp, actId, ltuid));
+            break;
+          case ApiRetCode.AlreadyCheckIn:
+            ga.fireEvent('이미체크인완료', { act_id: actId });
+            checkInResultList.push(this.successResponse(resp, actId, ltuid));
+            break;
+          default: {
+            captureApiException(new CheckInError(`${retcode}: ${message}`), url);
+            const errorMsgKey = ErrorMessageKey[retcode as ApiRetCode];
+            let msg = errorMsgKey ? i18n.t(errorMsgKey) : message;
+            if (
+              retcode === ApiRetCode.AuthExpired ||
+              retcode === ApiRetCode.NotLoggedIn
+            ) {
+              msg = `${msg}\n${i18n.t('common.re_register_account')}`;
+            }
+            checkInResultList.push({
+              actId,
+              ltuid,
+              retCode: retcode,
+              lastCheckInMessage: msg,
+            });
+            break;
           }
+        }
+      } catch (e) {
+        if (e instanceof TooManyRequestsError) {
           checkInResultList.push({
             actId,
             ltuid,
-            retCode: retcode,
-            lastCheckInMessage: msg,
+            retCode: ApiRetCode.TooManyRequests,
+            lastCheckInMessage: i18n.t('common.too_many_requests'),
           });
-          break;
+        } else {
+          throw e;
         }
       }
     }
