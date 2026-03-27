@@ -40,8 +40,10 @@ class AccountStore extends Storage<AccountInfoType[]> {
       }
       updateAccount.lastCheckInMessage = lastCheckInMessage;
       updateAccount.retCode = retCode;
-      updateAccount.lastCheckInDate = new Date().toISOString();
       updateAccount.lastCheckInResult = this.getLastCheckInResult(retCode);
+      if (retCode !== ApiRetCode.TooManyRequests) {
+        updateAccount.lastCheckInDate = new Date().toISOString();
+      }
     });
     await this.save(accountList);
   }
