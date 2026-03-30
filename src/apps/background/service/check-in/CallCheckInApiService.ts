@@ -66,6 +66,8 @@ export class CallCheckInApiService implements CallCheckInApiUsecase {
             ga.fireEvent('이미체크인완료', { act_id: actId });
             checkInResultList.push(this.successResponse(resp, actId, ltuid));
             break;
+          case ApiRetCode.TooManyRequests:
+            throw new TooManyRequestsError(url);
           default: {
             captureApiException(new CheckInError(`${retcode}: ${message}`), url);
             const errorMsgKey = ErrorMessageKey[retcode as ApiRetCode];
