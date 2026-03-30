@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "default_locale": "en",
   "name": "Hoyoverse Check-in",
-  "version": "3.2.1",
+  "version": "3.2.3",
   "description": "Hoyoverse Check-in",
   "permissions": [
     "storage",
