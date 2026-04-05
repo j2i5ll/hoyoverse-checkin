@@ -8,6 +8,8 @@ import { inject, injectable } from 'tsyringe';
 
 @injectable()
 export class CheckInController {
+  private isRunning = false;
+
   constructor(
     @inject('CallCheckInApiUsecase')
     private callCheckInApiService: CallCheckInApiUsecase,
@@ -28,12 +30,18 @@ export class CheckInController {
   }
 
   async checkInAll() {
-    const checkInList = await this.getCheckInListUsecase.execute();
-    if (checkInList.length === 0) {
-      return;
+    if (this.isRunning) return;
+    this.isRunning = true;
+    try {
+      const checkInList = await this.getCheckInListUsecase.execute();
+      if (checkInList.length === 0) {
+        return;
+      }
+      const checkInResultList =
+        await this.callCheckInApiService.execute(checkInList);
+      accountStore.updateLastCheckIn(checkInResultList);
+    } finally {
+      this.isRunning = false;
     }
-    const checkInResultList =
-      await this.callCheckInApiService.execute(checkInList);
-    accountStore.updateLastCheckIn(checkInResultList);
   }
 }

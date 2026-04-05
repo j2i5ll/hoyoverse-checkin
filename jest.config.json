@@ -2,11 +2,15 @@
   "preset": "ts-jest",
   "testEnvironment": "node",
   "transform": {
-    "^.+\\.ts$": "ts-jest"
+    "^.+\\.ts$": ["ts-jest", { "tsconfig": { "types": ["jest", "chrome", "node", "reflect-metadata"] } }]
   },
   "testRegex": "\\.spec\\.ts$",
+  "setupFiles": ["reflect-metadata"],
   "moduleNameMapper": {
-    "src/(.*)": ["<rootDir>/src/$1"]
+    "^@background/(.*)$": "<rootDir>/src/apps/background/$1",
+    "^@src/(.*)$": "<rootDir>/src/$1",
+    "^@apps/(.*)$": "<rootDir>/src/apps/$1",
+    "^src/(.*)$": "<rootDir>/src/$1"
   },
   "moduleFileExtensions": ["ts", "tsx", "js", "json"],
   "globals": {
