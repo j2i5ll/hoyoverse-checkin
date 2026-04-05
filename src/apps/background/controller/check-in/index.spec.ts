@@ -16,7 +16,7 @@ jest.mock('@background/alarm/AlarmManager', () => ({
   ALARM_NAMES: { CHECK_IN: 'checkin-interval' },
 }));
 
-function createController() {
+function createController(): CheckInController {
   return new (CheckInController as any)(
     { execute: mockExecuteCheckIn },
     { execute: mockExecuteGetList },
@@ -67,6 +67,7 @@ describe('CheckInController.checkInAll', () => {
     await Promise.all([call1, call2]);
 
     expect(mockExecuteGetList).toHaveBeenCalledTimes(1);
+    expect(mockExecuteCheckIn).toHaveBeenCalledTimes(1);
   });
 
   it('실행 중 에러가 발생해도 다음 호출이 가능하다', async () => {

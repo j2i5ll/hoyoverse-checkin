@@ -2,7 +2,7 @@
   "preset": "ts-jest",
   "testEnvironment": "node",
   "transform": {
-    "^.+\\.ts$": ["ts-jest", { "tsconfig": { "types": ["jest", "chrome", "node", "reflect-metadata"] } }]
+    "^.+\\.ts$": ["ts-jest", { "diagnostics": true, "tsconfig": { "types": ["jest", "chrome", "node", "reflect-metadata"] } }]
   },
   "testRegex": "\\.spec\\.ts$",
   "setupFiles": ["reflect-metadata"],
@@ -12,10 +12,5 @@
     "^@apps/(.*)$": "<rootDir>/src/apps/$1",
     "^src/(.*)$": "<rootDir>/src/$1"
   },
-  "moduleFileExtensions": ["ts", "tsx", "js", "json"],
-  "globals": {
-    "ts-jest": {
-      "diagnostics": true
-    }
-  }
+  "moduleFileExtensions": ["ts", "tsx", "js", "json"]
 }

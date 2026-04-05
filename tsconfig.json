@@ -19,7 +19,7 @@
     "allowJs": true,
     "checkJs": false,
     "isolatedModules": true,
-    "types": ["chrome", "node", "reflect-metadata", "react", "react-dom"],
+    "types": ["chrome", "node", "reflect-metadata", "react", "react-dom", "jest"],
     "jsx": "react-jsx",
     "esModuleInterop": true
   },
