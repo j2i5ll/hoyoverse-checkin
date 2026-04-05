@@ -38,6 +38,10 @@ export class CallCheckInApiService implements CallCheckInApiUsecase {
   ): Promise<CallCheckInApiOutput[]> {
     const checkInResultList = [];
     for (const checkInTarget of checkInTargetList) {
+      if (checkInResultList.length > 0) {
+        await this.delay(1000, 2000);
+      }
+
       const { actId, checkInAPIUrl, ltoken, ltuid } = checkInTarget;
       const headers = {};
       if (actId === GameActId[GameKey.ZZZ]) {
@@ -101,6 +105,11 @@ export class CallCheckInApiService implements CallCheckInApiUsecase {
       }
     }
     return checkInResultList;
+  }
+
+  private delay(min: number, max: number): Promise<void> {
+    const ms = Math.floor(Math.random() * (max - min + 1)) + min;
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   private successResponse(
