@@ -39,11 +39,11 @@ export class HSRScrapGameDataService extends ScrapGameDataUsecase {
 
       const { gameRoleId, region, nickname } = gameCard;
       const [
-        characterList,
+        characterResult,
         forgotRecord,
         storyRecord,
         bossRecord,
-        characterListEn,
+        characterResultEn,
         forgotRecordEn,
         storyRecordEn,
         bossRecordEn,
@@ -98,12 +98,16 @@ export class HSRScrapGameDataService extends ScrapGameDataUsecase {
           lang: 'en-us',
         }),
       ]);
+      const { avatarList: characterList, recommendProperty } = characterResult;
+      const { avatarList: characterListEn } = characterResultEn;
+
       const res = await this.sendDataToServer({
         data: {
           characterList,
           forgotRecord,
           storyRecord,
           bossRecord,
+          recommendProperty,
           i18n: {
             'en-US': {
               characterList: characterListEn,
@@ -153,12 +157,12 @@ export class HSRScrapGameDataService extends ScrapGameDataUsecase {
     lang,
   }: RecordDataProps) {
     try {
-      return getHSRCharacters({ region, roleId, token, lang });
+      return await getHSRCharacters({ region, roleId, token, lang });
     } catch (e) {
       if (e instanceof RetryLaterError) {
         throw e;
       }
-      return [];
+      return { avatarList: [], recommendProperty: undefined };
     }
   }
 
@@ -220,6 +224,7 @@ export class HSRScrapGameDataService extends ScrapGameDataUsecase {
       forgotRecord: unknown;
       storyRecord: unknown;
       bossRecord: unknown;
+      recommendProperty: unknown;
       i18n: {
         'en-US': {
           characterList: unknown[];
@@ -232,7 +237,14 @@ export class HSRScrapGameDataService extends ScrapGameDataUsecase {
     roleId: string;
     region: string;
   }) {
-    const { characterList, forgotRecord, storyRecord, bossRecord, i18n } = data;
+    const {
+      characterList,
+      forgotRecord,
+      storyRecord,
+      bossRecord,
+      recommendProperty,
+      i18n,
+    } = data;
     try {
       const res = await httpBE('/functions/v1/hsr/scrap', {
         method: 'POST',
@@ -242,6 +254,7 @@ export class HSRScrapGameDataService extends ScrapGameDataUsecase {
             forgotRecord,
             storyRecord,
             bossRecord,
+            recommendProperty,
             i18n,
           },
           roleId,

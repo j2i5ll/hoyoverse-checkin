@@ -41,8 +41,9 @@ export const getHSRCharacters = async ({
   }
   const avatarList = data.avatar_list;
   const weaponWikiMap = data.equip_wiki;
+  const recommendProperty = data.recommend_property;
 
-  return avatarList.map((avatar) => {
+  const mappedAvatarList = avatarList.map((avatar) => {
     if (avatar.equip) {
       const weaponWikiUrl = weaponWikiMap[avatar.equip.id];
       const weaponWikiId = weaponWikiUrl
@@ -56,6 +57,8 @@ export const getHSRCharacters = async ({
       ...avatar,
     };
   });
+
+  return { avatarList: mappedAvatarList, recommendProperty };
 };
 
 export const getHSRForgotRecord = async ({
