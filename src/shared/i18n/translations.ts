@@ -7,7 +7,8 @@ export default {
       'game.zzz': '젠레스 존 제로',
       'content.checking_account_status': '계정 상태를 확인중입니다.',
       'content.need_login': '로그인 후 이용해주세요.',
-      'content.need_login_to_register': '로그인 후 계정을 등록하세요.',
+      'content.need_login_to_register':
+        '화면 우측 상단의 프로필 버튼을 눌러 로그인해주세요.',
       'content.already_exist_account':
         '<b>{{email}}</b> 계정은 이미 등록되어 있습니다.',
       'content.check_automatically_in_browser':
@@ -109,7 +110,7 @@ export default {
       'content.checking_account_status': 'Checking account status.',
       'content.need_login': 'Please use after logging in.',
       'content.need_login_to_register':
-        'Please log in to register an account.',
+        'Click the profile button at the top right of the screen to log in.',
       'content.already_exist_account':
         '<b>{{email}}</b> account is already registered.',
       'content.check_automatically_in_browser':
@@ -214,7 +215,7 @@ export default {
       'content.checking_account_status': 'アカウント状況を確認中です。',
       'content.need_login': 'ログイン後にご利用ください。',
       'content.need_login_to_register':
-        'ログインしてアカウントを登録してください。',
+        '画面右上のプロフィールボタンをクリックしてログインしてください。',
       'content.already_exist_account':
         '<b>{{email}}</b> のアカウントはすでに登録されています。',
       'content.check_automatically_in_browser':
@@ -316,7 +317,8 @@ export default {
       'game.zzz': '絕區零',
       'content.checking_account_status': '正在检查账户状态。',
       'content.need_login': '请登录后使用。',
-      'content.need_login_to_register': '请登录后注册账户。',
+      'content.need_login_to_register':
+        '请点击屏幕右上角的个人资料按钮进行登录。',
       'content.already_exist_account': '<b>{{email}}</b> 账户已存在。',
       'content.check_automatically_in_browser': '浏览器会自动签到。',
       'content.email_added': '已添加 <b>{{email}}</b> 账户。',
