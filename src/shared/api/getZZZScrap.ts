@@ -116,7 +116,7 @@ export const getZZZStormRecords = async ({
   region: string;
   lang: ScrapLang;
 }) => {
-  const url = `https://sg-public-api.hoyolab.com/event/game_record_zzz/api/zzz/mem_detail?uid=${roleId}&region=${region}&schedule_type=1`;
+  const url = `https://sg-act-public-api.hoyolab.com/event/game_record_zzz/api/zzz/hadal_mem_detail_v2?uid=${roleId}&region=${region}&schedule_type=1`;
   const { data, retcode, message } = await httpWithCookie(
     url,
     {
