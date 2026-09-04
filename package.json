@@ -14,6 +14,7 @@
   "homepage": "https://github.com/j2i5ll/hoyo-checkin#readme",
   "scripts": {
     "dev": "vite",
+    "dev:preview": "vite --open /preview.html",
     "build": "vite build && cp -r ./_locales dist",
     "format": "prettier --write \"./**/*.{js,jsx,ts,tsx,css,scss,md,html,json}\"",
     "test": "jest",

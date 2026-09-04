@@ -10,14 +10,15 @@ Hoyoverse Check-in is a Chrome extension (Manifest V3) for automatic daily check
 
 ```bash
 npm run dev          # Start development mode with hot reload
+npm run dev:preview  # Open Content Script Tooltip Dev Preview (standalone Vite web preview)
 npm run build        # Production build (outputs to dist/, copies _locales)
-npm run type-check   # TypeScript type checking
 npm run lint         # ESLint
 npm run format       # Prettier formatting
 npm run test         # Jest tests
 ```
 
-After `npm run dev`, load the `dist` directory as an unpacked extension in `chrome://extensions` with Developer Mode enabled.
+- **Content Script Tooltip Dev Preview**: `npm run dev:preview` opens `http://localhost:5173/preview.html`. It renders all 10 tooltip states in real Shadow DOM with an interactive toolbar to test dynamic `html font-size` scaling (16px ~ 100px), multi-language switching (`ko`, `en`, `ja`, `zh_TW`), and theme backgrounds without requiring Chrome extension installation.
+- After `npm run dev`, load the `dist` directory as an unpacked extension in `chrome://extensions` with Developer Mode enabled.
 
 ## Architecture
 
@@ -40,6 +41,7 @@ src/apps/background/
 ### Path Aliases
 
 Defined in both `tsconfig.json` and `vite.config.ts`:
+
 - `@apps/*` → `src/apps/*`
 - `@background/*` → `src/apps/background/*`
 - `@front/*` → `src/apps/front/*`
@@ -62,6 +64,7 @@ Frontend communicates with background via `chrome.runtime.onMessage`. Message ty
 The content script UI (`src/apps/front/content/tooltip/`) is injected directly into official HoYoverse check-in web pages (`act.hoyolab.com`).
 
 **Host Page Context & Root Cause of Broken Layouts:**
+
 - HoYoverse/HoYoLAB check-in pages dynamically inject a massive `font-size` on the host document's `<html>` element (often `50px ~ 100px`) via responsive mobile scaling scripts.
 - **CSS Specification Rule**: Even when injected inside a **Shadow DOM**, `rem` units in CSS **always resolve against the host document's `<html>` element**, NOT the shadow root.
 - Consequently, using Tailwind's default `rem`-based classes (e.g. `text-xs`, `text-sm`, `h-8`, `p-4`, `rounded-xl`, `space-y-*`, or default shadcn/Radix components like `Button`, `CardContent`, `CardFooter`) will blow up dimensions by 3x–6x:
@@ -69,6 +72,7 @@ The content script UI (`src/apps/front/content/tooltip/`) is injected directly i
   - Sizing like `h-8` (2rem) turns into 150px–200px giant buttons.
 
 **Rules for Content Script Development:**
+
 1. **Always use explicit pixel units (`px`)**:
    - Never use bare Tailwind rem-based utilities (`text-xs`, `text-sm`, `h-8`, `w-8`, `p-4`, `px-3`, `gap-2`, `rounded-md`, etc.).
    - Always use explicit bracket notation: `text-[12px]`, `leading-[16px]`, `h-[32px]`, `w-[380px]`, `p-[16px]`, `px-[12px]`, `gap-[8px]`, `rounded-[8px]`.
