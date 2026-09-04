@@ -17,6 +17,8 @@ import { GetCookieOutput } from '@background/domain/cookie/port/GetCookiePort';
 import { requestMessage } from '@front/shared/utils/browser';
 import { MessageType } from '@src/types';
 import { gameIdToActId } from '@src/shared/utils/gameMapping';
+import TooltipLayout from '@front/content/tooltip/components/TooltipLayer';
+import { Loader2 } from 'lucide-react';
 
 interface AccountStatusProps extends WithTranslation {
   email: string;
@@ -81,14 +83,31 @@ const AccountStatusCard = withTranslation()(function ({
   if (accountStatus === 'EXIST' || accountStatus === 'NEW') {
     if (isRolesLoading || !roles) {
       return (
-        <div className="description">
-          {t('content.checking_account_status')}
-        </div>
+        <TooltipLayout
+          content={
+            <div className="flex items-center gap-[10px] py-[4px]">
+              <Loader2
+                size={18}
+                className="h-[18px] w-[18px] shrink-0 animate-spin text-foreground"
+                strokeWidth={2.2}
+              />
+              <div className="flex flex-col gap-[2px]">
+                <span className="text-[12px] font-semibold leading-[16px] text-foreground">
+                  {t(
+                    'content.checking_account_status',
+                    '계정 상태를 확인 중입니다.',
+                  )}
+                </span>
+                <span className="text-[11px] leading-[14px] text-muted-foreground">
+                  게임 계정 정보를 불러오고 있습니다...
+                </span>
+              </div>
+            </div>
+          }
+        />
       );
     }
-    const supportedRoles = roles.filter(
-      (role) => !!gameIdToActId(role.gameId),
-    );
+    const supportedRoles = roles.filter((role) => !!gameIdToActId(role.gameId));
     return (
       <SelectGameAccountCard
         email={email}
@@ -106,7 +125,28 @@ const AccountStatusCard = withTranslation()(function ({
   }
 
   return (
-    <div className="description">{t('content.checking_account_status')}</div>
+    <TooltipLayout
+      content={
+        <div className="flex items-center gap-[10px] py-[4px]">
+          <Loader2
+            size={18}
+            className="h-[18px] w-[18px] shrink-0 animate-spin text-foreground"
+            strokeWidth={2.2}
+          />
+          <div className="flex flex-col gap-[2px]">
+            <span className="text-[12px] font-semibold leading-[16px] text-foreground">
+              {t(
+                'content.checking_account_status',
+                '계정 상태를 확인 중입니다.',
+              )}
+            </span>
+            <span className="text-[11px] leading-[14px] text-muted-foreground">
+              잠시만 기다려 주세요...
+            </span>
+          </div>
+        </div>
+      }
+    />
   );
 });
 

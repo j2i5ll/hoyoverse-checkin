@@ -29,6 +29,18 @@ export default {
       'content.register_other_games': '다른 게임도 등록하기',
       'content.partial_registration_failed':
         '일부 계정 등록에 실패했습니다. ({{successCount}}/{{totalCount}})',
+      'content.badge_assistant': '자동 출석',
+      'content.registration_guide_desc':
+        '계정을 등록하면 브라우저가 열려있을 때 매일 자동으로 출석체크를 진행합니다.',
+      'content.registration_safe_note':
+        '로그인 정보는 브라우저 로컬에만 안전하게 보관됩니다.',
+      'content.login_step_guide':
+        '로그인 후 이 페이지로 돌아오면 게임 계정을 바로 등록할 수 있습니다.',
+      'content.select_all': '전체 선택',
+      'content.deselect_all': '선택 해제',
+      'content.registration_complete': '계정 등록 완료',
+      'content.added_success_note':
+        '확장 프로그램 아이콘을 클릭하여 언제든 출석 상태를 확인할 수 있습니다.',
       'common.register_selected': '선택 등록',
       'common.account_registration': '계정 등록하기',
       'options.no_account_description': '등록된 계정이 없습니다.🤔',
@@ -134,6 +146,18 @@ export default {
       'content.register_other_games': 'Register other games',
       'content.partial_registration_failed':
         'Some accounts failed to register. ({{successCount}}/{{totalCount}})',
+      'content.badge_assistant': 'Auto Check-in',
+      'content.registration_guide_desc':
+        'Register your account to enable automatic daily check-in whenever your browser is open.',
+      'content.registration_safe_note':
+        'Credentials remain securely stored in your local browser only.',
+      'content.login_step_guide':
+        'After logging in, return to this page to register your game accounts.',
+      'content.select_all': 'Select All',
+      'content.deselect_all': 'Deselect All',
+      'content.registration_complete': 'Registration Complete',
+      'content.added_success_note':
+        'Click the extension icon at any time to check check-in status.',
       'common.register_selected': 'Register Selected',
       'common.account_registration': 'Register account️',
       'options.no_account_description': 'No registered account.🤔',
@@ -242,6 +266,18 @@ export default {
       'content.register_other_games': '他のゲームも登録する',
       'content.partial_registration_failed':
         '一部のアカウント登録に失敗しました。({{successCount}}/{{totalCount}})',
+      'content.badge_assistant': '自動チェックイン',
+      'content.registration_guide_desc':
+        'アカウントを登録すると、ブラウザを開いている間に毎日自動でチェックインが行われます。',
+      'content.registration_safe_note':
+        'ログイン情報はブラウザのローカルにのみ安全に保存されます。',
+      'content.login_step_guide':
+        'ログイン後、このページに戻るとゲームアカウントを登録できます。',
+      'content.select_all': 'すべて選択',
+      'content.deselect_all': '選択解除',
+      'content.registration_complete': '登録完了',
+      'content.added_success_note':
+        '拡張機能アイコンをクリックすると、いつでもチェックイン状況を確認できます。',
       'common.register_selected': '選択を登録',
       'common.account_registration': 'アカウントを登録する️',
       'options.no_account_description': '登録されたアカウントがありません。🤔',
@@ -340,6 +376,17 @@ export default {
       'content.register_other_games': '注册其他游戏',
       'content.partial_registration_failed':
         '部分账户注册失败。({{successCount}}/{{totalCount}})',
+      'content.badge_assistant': '自动签到',
+      'content.registration_guide_desc':
+        '注册账户后，只要浏览器处于运行状态，每天都会自动进行签到。',
+      'content.registration_safe_note':
+        '登录凭证仅安全保存在您的本地浏览器中。',
+      'content.login_step_guide':
+        '登录后返回此页面，即可直接注册您的游戏账户。',
+      'content.select_all': '全选',
+      'content.deselect_all': '取消全选',
+      'content.registration_complete': '注册完成',
+      'content.added_success_note': '随时点击扩展程序图标，即可查看签到状态。',
       'common.register_selected': '注册所选',
       'common.account_registration': '注册账户',
       'options.no_account_description': '没有已注册的账户。🤔',

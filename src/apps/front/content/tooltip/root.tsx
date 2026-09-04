@@ -18,8 +18,24 @@ rootIntoShadow.id = 'shadow-root';
 const shadowRoot = root.attachShadow({ mode: 'open' });
 shadowRoot.appendChild(rootIntoShadow);
 
+const resetStyle = `
+  :host, #shadow-root {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+    text-align: left !important;
+    direction: ltr !important;
+    writing-mode: horizontal-tb !important;
+    letter-spacing: normal !important;
+  }
+  #shadow-root * {
+    box-sizing: border-box !important;
+    writing-mode: horizontal-tb !important;
+  }
+`;
+
 const styleElement = document.createElement('style');
-styleElement.innerHTML = globalInjectedStyle; // + injectedStyle;
+styleElement.innerHTML = resetStyle + globalInjectedStyle;
 shadowRoot.appendChild(styleElement);
 ga.init('tooltip');
 createRoot(rootIntoShadow).render(
