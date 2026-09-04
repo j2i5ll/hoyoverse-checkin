@@ -47,7 +47,7 @@ class AccountStore extends Storage<AccountInfoType[]> {
     });
     await this.save(accountList);
   }
-  async addAccount(newAccount: AccountInfoType) {
+  async addAccount(newAccount: AccountInfoType): Promise<boolean> {
     const accountList = await this.getAccountList();
     const exist = accountList.find(
       (account) =>
@@ -55,10 +55,11 @@ class AccountStore extends Storage<AccountInfoType[]> {
         account.actId === newAccount.actId,
     );
     if (exist) {
-      return;
+      return false;
     }
     accountList.push(newAccount);
-    this.save(accountList);
+    await this.save(accountList);
+    return true;
   }
   async setAccountList(accountList: AccountInfoType[]) {
     await this.save(accountList);

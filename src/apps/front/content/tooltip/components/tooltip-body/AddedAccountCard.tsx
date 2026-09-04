@@ -37,7 +37,7 @@ function AddedAccountCard({ t, count = 1 }: AddedAccountBodyProps) {
       }
       footer={
         <TooltipFooter
-          confirmText={t('onboarding.register_account')}
+          confirmText={t('content.add_other_account')}
           onConfirm={handleAddAccount}
           confirmDisabled={isPending}
         />

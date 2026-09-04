@@ -22,6 +22,7 @@ export default {
       'content.all_accounts_registered':
         '로그인한 계정의 모든 게임 계정이 이미 등록되어 있습니다.',
       'content.accounts_added': '{{count}}개의 계정이 추가되었습니다.',
+      'content.add_other_account': '다른 계정 추가하기',
       'content.confirm_registration':
         'Hoyoverse Check-in에 계정을 등록하시겠습니까?',
       'content.no_available_games': '등록 가능한 게임이 없습니다.',
@@ -40,7 +41,8 @@ export default {
       'common.need_captcha':
         '출석체크 사이트에서 수동으로 출석체크가 필요합니다.',
       'common.re_register_account': '계정 삭제 후 다시 등록해 주세요.',
-      'common.too_many_requests': '요청이 너무 많습니다. 다음 출석체크 때 재시도합니다.',
+      'common.too_many_requests':
+        '요청이 너무 많습니다. 다음 출석체크 때 재시도합니다.',
       'common.resource_stemina': '개척력',
       'common.resource_resin': '레진',
       'common.resource_energy': '배터리',
@@ -125,6 +127,7 @@ export default {
       'content.all_accounts_registered':
         'All game accounts for the logged-in account are already registered.',
       'content.accounts_added': '{{count}} account(s) have been added.',
+      'content.add_other_account': 'Add another account',
       'content.confirm_registration':
         'Would you like to register an account with Hoyoverse Check-in?',
       'content.no_available_games': 'No games available for registration.',
@@ -142,8 +145,10 @@ export default {
       'common.no_character': 'There is no character in the game.',
       'common.need_captcha':
         'Manual check-in is required on the attendance site.',
-      'common.re_register_account': 'Please delete the account and re-register.',
-      'common.too_many_requests': 'Too many requests. Will retry at next check-in.',
+      'common.re_register_account':
+        'Please delete the account and re-register.',
+      'common.too_many_requests':
+        'Too many requests. Will retry at next check-in.',
       'common.resource_stemina': 'Trailblaze Power',
       'common.resource_resin': 'Resin',
       'common.resource_energy': 'Battery',
@@ -229,8 +234,8 @@ export default {
       'content.already_registered': '登録済み',
       'content.all_accounts_registered':
         'ログイン中のアカウントのすべてのゲームアカウントはすでに登録されています。',
-      'content.accounts_added':
-        '{{count}}つのアカウントが追加されました。',
+      'content.accounts_added': '{{count}}つのアカウントが追加されました。',
+      'content.add_other_account': '別のアカウントを追加',
       'content.confirm_registration':
         'Hoyoverse Check-inにアカウントを登録しますか？',
       'content.no_available_games': '登録可能なゲームがありません。',
@@ -248,7 +253,8 @@ export default {
       'common.no_character': 'ゲームの中にキャラクターがいません。',
       'common.need_captcha': '出席サイトで手動でチェックインが必要です。',
       'common.re_register_account': 'アカウントを削除して再登録してください。',
-      'common.too_many_requests': 'リクエストが多すぎます。次のチェックインで再試行します。',
+      'common.too_many_requests':
+        'リクエストが多すぎます。次のチェックインで再試行します。',
       'common.resource_stemina': '開拓力',
       'common.resource_resin': '樹脂',
       'common.resource_energy': 'バッテリー',
@@ -324,13 +330,12 @@ export default {
       'content.email_added': '已添加 <b>{{email}}</b> 账户。',
       'content.confirm_add_email': '您确定要注册 <b>{{email}}</b> 账户吗？',
       'content.not_supported_game': '我们尚未支持这款游戏。😥',
-      'content.select_game_accounts':
-        '请选择<b>{{email}}</b>的游戏账户。',
+      'content.select_game_accounts': '请选择<b>{{email}}</b>的游戏账户。',
       'content.already_registered': '已注册',
       'content.all_accounts_registered': '已登录账户的所有游戏账户均已注册。',
       'content.accounts_added': '已添加{{count}}个账户。',
-      'content.confirm_registration':
-        '您要在Hoyoverse Check-in中注册账户吗？',
+      'content.add_other_account': '添加其他账户',
+      'content.confirm_registration': '您要在Hoyoverse Check-in中注册账户吗？',
       'content.no_available_games': '没有可注册的游戏。',
       'content.register_other_games': '注册其他游戏',
       'content.partial_registration_failed':
