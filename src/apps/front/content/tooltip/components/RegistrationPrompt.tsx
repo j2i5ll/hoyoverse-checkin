@@ -10,7 +10,7 @@ import { MessageType } from '@src/types';
 import { buildRegistrationUrl } from '@src/shared/utils/url';
 import TooltipLayout from '@front/content/tooltip/components/TooltipLayer';
 import TooltipFooter from './tooltip-footer';
-import { Sparkles, ShieldCheck, Check } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 function RegistrationPrompt({ t }: WithTranslation) {
   const [isPending, setIsPending] = useState(false);
@@ -25,66 +25,36 @@ function RegistrationPrompt({ t }: WithTranslation) {
 
   return (
     <TooltipLayout
+      icon={
+        <Sparkles
+          size={16}
+          className="h-[16px] w-[16px] shrink-0 text-foreground"
+          strokeWidth={2}
+        />
+      }
       content={
-        <div className="flex flex-col gap-[12px]">
-          {/* Header prompt with icon */}
-          <div className="flex items-start gap-[10px]">
-            <div className="shadow-xs flex h-[36px] w-[36px] shrink-0 items-center justify-center rounded-[10px] bg-foreground text-background">
-              <Sparkles
-                size={16}
-                className="h-[16px] w-[16px] shrink-0"
-                strokeWidth={2}
-              />
-            </div>
-            <div className="flex flex-col">
-              <h3 className="text-[14px] font-semibold leading-[18px] text-foreground">
-                {t(
-                  'content.confirm_registration',
-                  'Hoyoverse Check-in에 계정을 등록하시겠습니까?',
-                )}
-              </h3>
-              <p className="mt-[2px] text-[12px] leading-[17px] text-muted-foreground">
-                {t(
-                  'content.registration_guide_desc',
-                  '계정을 등록하면 브라우저가 열려있을 때 매일 자동으로 출석체크를 진행합니다.',
-                )}
-              </p>
-            </div>
-          </div>
+        <div className="flex flex-col gap-[4px] py-[2px]">
+          <h3 className="text-[14px] font-semibold leading-[20px] text-foreground">
+            {t('content.confirm_registration', '자동 출석 계정 등록')}
+          </h3>
+          <p className="text-[12px] leading-[18px] text-muted-foreground">
+            {t(
+              'content.registration_guide_desc',
+              '브라우저가 열려있을 때 매일 자동으로 출석체크합니다.',
+            )}
+          </p>
 
-          {/* Value props list */}
-          <div className="flex flex-col gap-[6px] rounded-[10px] border border-border/70 bg-muted/20 p-[10px] text-[11px] leading-[15px]">
-            <div className="flex items-center gap-[8px] text-muted-foreground">
-              <Check
-                size={13}
-                className="h-[13px] w-[13px] shrink-0 text-foreground"
-                strokeWidth={2.5}
-              />
-              <span>
-                {t(
-                  'content.check_automatically_in_browser',
-                  '브라우저에서 자동으로 출첵을 수행합니다.',
-                )}
-              </span>
-            </div>
-            <div className="flex items-center gap-[8px] text-muted-foreground">
-              <ShieldCheck
-                size={13}
-                className="h-[13px] w-[13px] shrink-0 text-foreground"
-                strokeWidth={2}
-              />
-              <span>
-                {t(
-                  'content.registration_safe_note',
-                  '로그인 정보는 브라우저 로컬에만 안전하게 보관됩니다.',
-                )}
-              </span>
-            </div>
-          </div>
+          <p className="text-[12px] leading-[18px] text-muted-foreground">
+            {t(
+              'content.registration_safe_note',
+              '계정 정보는 브라우저에만 안전하게 저장됩니다.',
+            )}
+          </p>
         </div>
       }
       footer={
         <TooltipFooter
+          cancelText={t('common.close', '나중에')}
           confirmText={t('common.registration', '등록하기')}
           onConfirm={handleConfirm}
           confirmDisabled={isPending}

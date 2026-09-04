@@ -13,7 +13,7 @@ import {
   getGameInfoByGameId,
 } from '@src/shared/utils/gameMapping';
 import { ga } from '@src/shared/ga';
-import { Check, CheckCircle2, AlertCircle, User } from 'lucide-react';
+import { Check, CheckCircle2, AlertCircle } from 'lucide-react';
 
 interface SelectGameAccountCardProps extends WithTranslation {
   email: string;
@@ -116,19 +116,19 @@ function SelectGameAccountCard({
   if (rolesWithActId.length === 0) {
     return (
       <TooltipLayout
+        icon={
+          <AlertCircle
+            size={16}
+            className="h-[16px] w-[16px] shrink-0 text-foreground"
+            strokeWidth={2}
+          />
+        }
         content={
-          <div className="flex flex-col items-center py-[8px] text-center">
-            <div className="shadow-xs mb-[10px] flex h-[36px] w-[36px] items-center justify-center rounded-[10px] bg-muted text-muted-foreground">
-              <AlertCircle
-                size={18}
-                className="h-[18px] w-[18px] shrink-0"
-                strokeWidth={2}
-              />
-            </div>
-            <h3 className="text-[13px] font-semibold leading-[18px] text-foreground">
+          <div className="flex flex-col gap-[4px] py-[2px]">
+            <h3 className="text-[14px] font-semibold leading-[20px] text-foreground">
               {t('content.no_available_games', '등록 가능한 게임이 없습니다.')}
             </h3>
-            <p className="mt-[4px] text-[11px] leading-[15px] text-muted-foreground">
+            <p className="text-[12px] leading-[18px] text-muted-foreground">
               {t('common.no_character', '게임 내에 캐릭터가 없습니다.')}
             </p>
           </div>
@@ -141,26 +141,23 @@ function SelectGameAccountCard({
   if (allRegistered) {
     return (
       <TooltipLayout
+        icon={
+          <CheckCircle2
+            size={16}
+            className="h-[16px] w-[16px] shrink-0 text-foreground"
+            strokeWidth={2}
+          />
+        }
         content={
-          <div className="flex flex-col items-center py-[8px] text-center">
-            <div className="shadow-xs mb-[10px] flex h-[36px] w-[36px] items-center justify-center rounded-[10px] bg-foreground text-background">
-              <CheckCircle2
-                size={18}
-                className="h-[18px] w-[18px] shrink-0"
-                strokeWidth={2.2}
-              />
-            </div>
-            <h3 className="text-[13px] font-semibold leading-[18px] text-foreground">
+          <div className="flex flex-col gap-[4px] py-[2px]">
+            <h3 className="text-[14px] font-semibold leading-[20px] text-foreground">
               {t(
                 'content.all_accounts_registered',
-                '로그인한 계정의 모든 게임 계정이 이미 등록되어 있습니다.',
+                '모든 게임 계정이 이미 등록되어 있습니다.',
               )}
             </h3>
-            <p className="mt-[4px] text-[11px] leading-[15px] text-muted-foreground">
-              {t(
-                'content.check_automatically_in_browser',
-                '브라우저에서 자동으로 출첵을 수행합니다.',
-              )}
+            <p className="font-mono text-[12px] leading-[18px] text-muted-foreground">
+              {email}
             </p>
           </div>
         }
@@ -176,57 +173,33 @@ function SelectGameAccountCard({
   return (
     <TooltipLayout
       content={
-        <div className="flex flex-col gap-[10px]">
-          {/* Email user identifier & instruction */}
-          <div className="flex flex-col gap-[6px]">
-            <div className="flex items-center gap-[6px] rounded-[6px] border border-border/60 bg-muted/40 px-[8px] py-[4px] text-[11px] leading-[14px] text-muted-foreground">
-              <User
-                size={12}
-                className="h-[12px] w-[12px] shrink-0 text-foreground"
-              />
-              <span className="truncate font-mono font-medium text-foreground">
-                {email}
+        <div className="flex flex-col gap-[8px]">
+          {/* Streamlined Header: Title + Email + Quick Select Toggle */}
+          <div className="flex items-center justify-between px-[2px] pb-[2px]">
+            <div className="flex min-w-0 items-center gap-[6px]">
+              <span className="text-[13px] font-semibold leading-[18px] text-foreground">
+                {t('content.select_characters', '출석할 캐릭터 선택')}
+              </span>
+              <span className="truncate font-mono text-[11px] text-muted-foreground">
+                ({email})
               </span>
             </div>
-            <p className="text-[12px] leading-[16px] text-muted-foreground">
-              {t(
-                'content.registration_guide_desc',
-                '출석 체크를 진행할 게임 캐릭터를 선택해 주세요.',
-              )}
-            </p>
+
+            {availableActIds.length > 1 && (
+              <button
+                type="button"
+                onClick={isAllSelected ? handleDeselectAll : handleSelectAll}
+                className="shrink-0 cursor-pointer text-[11px] font-medium text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {isAllSelected
+                  ? t('content.deselect_all', '해제')
+                  : t('content.select_all', '전체 선택')}
+              </button>
+            )}
           </div>
 
-          {/* Quick Select Bar (when multiple available) */}
-          {availableActIds.length > 1 && (
-            <div className="flex items-center justify-between border-t border-border/40 pt-[6px] text-[11px] leading-[14px]">
-              <span className="font-medium text-muted-foreground">
-                {selectedActIds.size}/{availableActIds.length}{' '}
-                {t('common.register_selected', '선택')}
-              </span>
-              <div className="flex items-center gap-[8px]">
-                {isAllSelected ? (
-                  <button
-                    type="button"
-                    onClick={handleDeselectAll}
-                    className="cursor-pointer font-medium text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {t('content.deselect_all', '선택 해제')}
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={handleSelectAll}
-                    className="cursor-pointer font-medium text-foreground transition-colors hover:underline"
-                  >
-                    {t('content.select_all', '전체 선택')}
-                  </button>
-                )}
-              </div>
-            </div>
-          )}
-
           {/* Roles Selection List */}
-          <div className="flex max-h-[200px] flex-col gap-[6px] overflow-y-auto pr-[4px]">
+          <div className="flex max-h-[220px] flex-col gap-[6px] overflow-y-auto pr-[2px]">
             {rolesWithActId.map((role) => {
               const registered = isRegistered(role.actId);
               const selected = selectedActIds.has(role.actId);

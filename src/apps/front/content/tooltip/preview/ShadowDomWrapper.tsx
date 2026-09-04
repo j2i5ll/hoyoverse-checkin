@@ -91,7 +91,8 @@ export function ShadowDomWrapper({
   useEffect(() => {
     if (!styleElRef.current) return;
     const modeCss = mode === 'preview' ? previewModeStyle : '';
-    styleElRef.current.textContent = baseResetStyle + '\n' + modeCss + '\n' + globalInjectedStyle;
+    styleElRef.current.textContent =
+      baseResetStyle + '\n' + modeCss + '\n' + globalInjectedStyle;
   }, [mode]);
 
   return (

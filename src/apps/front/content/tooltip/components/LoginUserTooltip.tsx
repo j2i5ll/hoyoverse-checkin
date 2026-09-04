@@ -85,23 +85,18 @@ const AccountStatusCard = withTranslation()(function ({
       return (
         <TooltipLayout
           content={
-            <div className="flex items-center gap-[10px] py-[4px]">
+            <div className="flex items-center gap-[10px] py-[6px]">
               <Loader2
-                size={18}
-                className="h-[18px] w-[18px] shrink-0 animate-spin text-foreground"
+                size={16}
+                className="h-[16px] w-[16px] shrink-0 animate-spin text-foreground"
                 strokeWidth={2.2}
               />
-              <div className="flex flex-col gap-[2px]">
-                <span className="text-[12px] font-semibold leading-[16px] text-foreground">
-                  {t(
-                    'content.checking_account_status',
-                    '계정 상태를 확인 중입니다.',
-                  )}
-                </span>
-                <span className="text-[11px] leading-[14px] text-muted-foreground">
-                  게임 계정 정보를 불러오고 있습니다...
-                </span>
-              </div>
+              <span className="text-[12px] font-medium leading-[16px] text-foreground">
+                {t(
+                  'content.checking_account_status',
+                  '계정 상태를 확인 중입니다...',
+                )}
+              </span>
             </div>
           }
         />
@@ -127,23 +122,18 @@ const AccountStatusCard = withTranslation()(function ({
   return (
     <TooltipLayout
       content={
-        <div className="flex items-center gap-[10px] py-[4px]">
+        <div className="flex items-center gap-[10px] py-[6px]">
           <Loader2
-            size={18}
-            className="h-[18px] w-[18px] shrink-0 animate-spin text-foreground"
+            size={16}
+            className="h-[16px] w-[16px] shrink-0 animate-spin text-foreground"
             strokeWidth={2.2}
           />
-          <div className="flex flex-col gap-[2px]">
-            <span className="text-[12px] font-semibold leading-[16px] text-foreground">
-              {t(
-                'content.checking_account_status',
-                '계정 상태를 확인 중입니다.',
-              )}
-            </span>
-            <span className="text-[11px] leading-[14px] text-muted-foreground">
-              잠시만 기다려 주세요...
-            </span>
-          </div>
+          <span className="text-[12px] font-medium leading-[16px] text-foreground">
+            {t(
+              'content.checking_account_status',
+              '계정 상태를 확인 중입니다...',
+            )}
+          </span>
         </div>
       }
     />

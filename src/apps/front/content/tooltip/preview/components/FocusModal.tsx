@@ -17,7 +17,9 @@ export function FocusModal({
   children,
 }: FocusModalProps) {
   const [isOpen, setIsOpen] = useState(true);
-  const [viewPosition, setViewPosition] = useState<'center' | 'fixed'>('center');
+  const [viewPosition, setViewPosition] = useState<'center' | 'fixed'>(
+    'center',
+  );
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -30,7 +32,7 @@ export function FocusModal({
   }, [onClose]);
 
   return (
-    <div className="fixed inset-0 z-[999999] isolate flex flex-col bg-slate-950/90 backdrop-blur-md duration-200 animate-in fade-in select-none">
+    <div className="fixed inset-0 isolate z-[999999] flex select-none flex-col bg-slate-950/90 backdrop-blur-md duration-200 animate-in fade-in">
       {/* Top Banner */}
       <div className="flex items-center justify-between border-b border-slate-800 bg-slate-900/90 px-6 py-3 shadow-md">
         <div className="flex items-center gap-3">
@@ -49,9 +51,9 @@ export function FocusModal({
             <button
               type="button"
               onClick={() => setViewPosition('center')}
-              className={`flex items-center gap-1 px-2.5 py-1 rounded transition-colors ${
+              className={`flex items-center gap-1 rounded px-2.5 py-1 transition-colors ${
                 viewPosition === 'center'
-                  ? 'bg-white text-black font-semibold shadow-xs'
+                  ? 'shadow-xs bg-white font-semibold text-black'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
@@ -61,9 +63,9 @@ export function FocusModal({
             <button
               type="button"
               onClick={() => setViewPosition('fixed')}
-              className={`flex items-center gap-1 px-2.5 py-1 rounded transition-colors ${
+              className={`flex items-center gap-1 rounded px-2.5 py-1 transition-colors ${
                 viewPosition === 'fixed'
-                  ? 'bg-white text-black font-semibold shadow-xs'
+                  ? 'shadow-xs bg-white font-semibold text-black'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
@@ -84,11 +86,11 @@ export function FocusModal({
       </div>
 
       {/* Full Viewport Canvas */}
-      <div className="relative h-full w-full flex-1 flex items-center justify-center p-8 overflow-hidden">
+      <div className="relative flex h-full w-full flex-1 items-center justify-center overflow-hidden p-8">
         {isOpen ? (
           <ShadowDomWrapper
             mode={viewPosition === 'center' ? 'preview' : 'viewport'}
-            className="h-full w-full flex items-center justify-center"
+            className="flex h-full w-full items-center justify-center"
           >
             <ToggleTooltipContext.Provider
               value={{
@@ -104,17 +106,17 @@ export function FocusModal({
             </ToggleTooltipContext.Provider>
           </ShadowDomWrapper>
         ) : (
-          <div className="m-auto h-full flex flex-col items-center justify-center gap-3 text-center">
-            <div className="h-12 w-12 rounded-full bg-slate-800 flex items-center justify-center text-slate-400">
+          <div className="m-auto flex h-full flex-col items-center justify-center gap-3 text-center">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-800 text-slate-400">
               <EyeOff size={20} />
             </div>
-            <p className="text-sm text-slate-300 font-medium">
+            <p className="text-sm font-medium text-slate-300">
               팝업이 닫혔습니다.
             </p>
             <button
               type="button"
               onClick={() => setIsOpen(true)}
-              className="inline-flex items-center gap-1.5 rounded-md bg-white px-4 py-2 text-xs font-semibold text-black hover:bg-slate-200 transition-colors shadow-sm"
+              className="inline-flex items-center gap-1.5 rounded-md bg-white px-4 py-2 text-xs font-semibold text-black shadow-sm transition-colors hover:bg-slate-200"
             >
               <RefreshCw size={13} />
               <span>팝업 다시 열기</span>

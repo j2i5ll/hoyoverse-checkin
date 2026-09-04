@@ -10,6 +10,7 @@ import {
   mockEmail,
   mockGameRoles,
   mockRegisteredKeys,
+  mockAllRegisteredKeys,
   mockLtuid,
 } from './mockData';
 
@@ -18,7 +19,6 @@ import RegistrationPrompt from '../components/RegistrationPrompt';
 import LogoutUserTooltip from '../components/LogoutUserTooltip';
 import SelectGameAccountCard from '../components/tooltip-body/SelectGameAccountCard';
 import AddedAccountCard from '../components/tooltip-body/AddedAccountCard';
-import AccountAlreadyExistCard from '../components/tooltip-body/AccountAlreadyExistCard';
 import NotSupportedCard from '../components/tooltip-body/NotSupportedCard';
 import ErrorFallback from '../components/ErrorFallback';
 import TooltipLayout from '../components/TooltipLayer';
@@ -124,14 +124,22 @@ export function TooltipPreviewApp() {
       render: () => <AddedAccountCard count={1} />,
     },
     {
-      id: 'account-already-exist',
+      id: 'select-game-account-all-registered',
       index: '07',
-      title: 'AccountAlreadyExistCard',
+      title: 'SelectGameAccountCard (전체 등록 완료)',
       description:
-        '현재 접속한 계정이 이미 확장 프로그램에 등록되어 있을 때 안내 팝업',
+        '로그인된 계정의 모든 지원 게임이 이미 등록되어 있을 때 표시되는 안내 팝업',
       category: 'status' as const,
       categoryLabel: '이미 등록됨',
-      render: () => <AccountAlreadyExistCard />,
+      render: () => (
+        <SelectGameAccountCard
+          email={mockEmail}
+          roles={mockGameRoles}
+          registeredKeys={mockAllRegisteredKeys}
+          ltuid={mockLtuid}
+          onRegister={() => {}}
+        />
+      ),
     },
     {
       id: 'not-supported-card',
@@ -154,23 +162,18 @@ export function TooltipPreviewApp() {
       render: () => (
         <TooltipLayout
           content={
-            <div className="flex items-center gap-[10px] py-[4px]">
+            <div className="flex items-center gap-[10px] py-[6px]">
               <Loader2
-                size={18}
-                className="h-[18px] w-[18px] shrink-0 animate-spin text-foreground"
+                size={16}
+                className="h-[16px] w-[16px] shrink-0 animate-spin text-foreground"
                 strokeWidth={2.2}
               />
-              <div className="flex flex-col gap-[2px]">
-                <span className="text-[12px] font-semibold leading-[16px] text-foreground">
-                  {t(
-                    'content.checking_account_status',
-                    '계정 상태를 확인 중입니다.',
-                  )}
-                </span>
-                <span className="text-[11px] leading-[14px] text-muted-foreground">
-                  게임 계정 정보를 불러오고 있습니다...
-                </span>
-              </div>
+              <span className="text-[12px] font-medium leading-[16px] text-foreground">
+                {t(
+                  'content.checking_account_status',
+                  '계정 상태를 확인 중입니다...',
+                )}
+              </span>
             </div>
           }
         />

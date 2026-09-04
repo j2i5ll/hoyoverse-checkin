@@ -37,23 +37,21 @@ function ErrorFallback({ error }: ErrorFallbackProps) {
 
   return (
     <TooltipLayout
+      icon={
+        <AlertCircle
+          size={16}
+          className="h-[16px] w-[16px] shrink-0 text-foreground"
+          strokeWidth={2}
+        />
+      }
       content={
-        <div className="flex items-start gap-[10px]">
-          <div className="shadow-xs flex h-[36px] w-[36px] shrink-0 items-center justify-center rounded-[10px] bg-muted text-foreground">
-            <AlertCircle
-              size={18}
-              className="h-[18px] w-[18px] shrink-0"
-              strokeWidth={2}
-            />
-          </div>
-          <div className="flex flex-col">
-            <h3 className="text-[13px] font-semibold leading-[18px] text-foreground">
-              {t('error.unknown', '오류가 발생했습니다.')}
-            </h3>
-            <p className="mt-[2px] text-[12px] leading-[16px] text-muted-foreground">
-              {errorMessage}
-            </p>
-          </div>
+        <div className="flex flex-col gap-[4px] py-[2px]">
+          <h3 className="text-[14px] font-semibold leading-[20px] text-foreground">
+            {t('error.unknown', '오류가 발생했습니다.')}
+          </h3>
+          <p className="text-[12px] leading-[18px] text-muted-foreground">
+            {errorMessage}
+          </p>
         </div>
       }
       footer={<TooltipFooter />}

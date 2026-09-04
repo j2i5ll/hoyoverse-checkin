@@ -14,7 +14,7 @@ export type TooltipLayerProps = {
   footer?: ReactNode;
   description?: ReactNode;
   title?: ReactNode;
-  badge?: ReactNode;
+  icon?: ReactNode;
   onClose?: () => void;
 };
 
@@ -22,7 +22,7 @@ const TooltipLayout = ({
   content,
   footer,
   title = APP_NAME,
-  badge,
+  icon,
   onClose,
 }: TooltipLayerProps) => {
   const { setIsTooltipShow } = useContext(ToggleTooltipContext);
@@ -35,8 +35,6 @@ const TooltipLayout = ({
     setIsTooltipShow(false);
   };
 
-  const badgeText = badge ?? t('content.badge_assistant', '자동 출석');
-
   return (
     <div
       style={{ fontSize: '14px', lineHeight: '20px' }}
@@ -45,23 +43,18 @@ const TooltipLayout = ({
       {/* Top Header bar with app branding and close action */}
       <div className="flex items-center justify-between border-b border-border/60 bg-muted/20 px-[16px] py-[10px]">
         <div className="flex items-center gap-[8px]">
-          <div className="shadow-xs flex h-[24px] w-[24px] shrink-0 items-center justify-center rounded-[6px] bg-foreground text-background">
-            <CalendarCheck
-              size={14}
-              className="h-[14px] w-[14px] shrink-0"
-              strokeWidth={2.2}
-            />
-          </div>
-          <div className="flex items-center gap-[6px]">
-            <span className="text-[13px] font-semibold leading-[18px] tracking-tight text-foreground">
-              {title}
-            </span>
-            {badgeText && (
-              <span className="rounded-[4px] border border-border/60 bg-muted/80 px-[6px] py-[1px] text-[10px] font-medium leading-[14px] text-muted-foreground">
-                {badgeText}
-              </span>
+          <span className="flex shrink-0 items-center justify-center text-foreground">
+            {icon ?? (
+              <CalendarCheck
+                size={16}
+                className="h-[16px] w-[16px] shrink-0 text-foreground"
+                strokeWidth={2}
+              />
             )}
-          </div>
+          </span>
+          <span className="text-[13px] font-semibold leading-[18px] tracking-tight text-foreground">
+            {title}
+          </span>
         </div>
 
         <button

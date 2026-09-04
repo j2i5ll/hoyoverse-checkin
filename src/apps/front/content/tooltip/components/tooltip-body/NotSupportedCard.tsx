@@ -11,21 +11,23 @@ import { AlertCircle } from 'lucide-react';
 function NotSupportedCard({ t }: WithTranslation) {
   return (
     <TooltipLayout
+      icon={
+        <AlertCircle
+          size={16}
+          className="h-[16px] w-[16px] shrink-0 text-foreground"
+          strokeWidth={2}
+        />
+      }
       content={
-        <div className="flex flex-col items-center py-[8px] text-center">
-          <div className="shadow-xs mb-[10px] flex h-[36px] w-[36px] items-center justify-center rounded-[10px] bg-muted text-muted-foreground">
-            <AlertCircle
-              size={18}
-              className="h-[18px] w-[18px] shrink-0"
-              strokeWidth={2}
-            />
-          </div>
-          <h3 className="text-[13px] font-semibold leading-[18px] text-foreground">
+        <div className="flex flex-col gap-[4px] py-[2px]">
+          <h3 className="text-[14px] font-semibold leading-[20px] text-foreground">
             {t('content.not_supported_game', '아직 지원하지 않는 게임입니다.')}
           </h3>
-          <p className="mt-[4px] text-[11px] leading-[15px] text-muted-foreground">
-            원신, 붕괴: 스타레일, 붕괴3rd, 젠레스 존 제로의 출석 체크를
-            지원합니다.
+          <p className="text-[12px] leading-[18px] text-muted-foreground">
+            {t(
+              'content.supported_games_desc',
+              '원신, 스타레일, 붕괴3rd, 젠레스 존 제로 출석체크를 지원합니다.',
+            )}
           </p>
         </div>
       }

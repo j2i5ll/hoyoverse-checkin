@@ -6,38 +6,34 @@ export default {
       'game.honkai3rd': '붕괴3rd',
       'game.zzz': '젠레스 존 제로',
       'content.checking_account_status': '계정 상태를 확인중입니다.',
-      'content.need_login': '로그인 후 이용해주세요.',
+      'content.need_login': 'HoYoLAB 로그인이 필요합니다',
       'content.need_login_to_register':
-        '화면 우측 상단의 프로필 버튼을 눌러 로그인해주세요.',
-      'content.already_exist_account':
-        '<b>{{email}}</b> 계정은 이미 등록되어 있습니다.',
-      'content.check_automatically_in_browser':
-        '브라우저에서 자동으로 출첵을 수행합니다.',
+        '우측 상단 프로필에서 로그인 후 다시 방문해주세요.',
       'content.email_added': '<b>{{email}}</b> 계정이 추가되었습니다.',
       'content.confirm_add_email': '<b>{{email}}</b> 계정을 등록하시겠습니까?',
-      'content.not_supported_game': '아직 지원하지 않는 게임입니다.😥',
+      'content.not_supported_game': '아직 지원하지 않는 게임입니다.',
+      'content.supported_games_desc':
+        '원신, 스타레일, 붕괴3rd, 젠레스 존 제로 출석체크를 지원합니다.',
       'content.select_game_accounts':
         '<b>{{email}}</b>의 게임 계정을 선택하세요.',
       'content.already_registered': '등록됨',
       'content.all_accounts_registered':
-        '로그인한 계정의 모든 게임 계정이 이미 등록되어 있습니다.',
-      'content.accounts_added': '{{count}}개의 계정이 추가되었습니다.',
-      'content.add_other_account': '다른 계정 추가하기',
-      'content.confirm_registration':
-        'Hoyoverse Check-in에 계정을 등록하시겠습니까?',
+        '모든 게임 계정이 이미 등록되어 있습니다.',
+      'content.accounts_added': '{{count}}개 계정이 등록되었습니다.',
+      'content.add_other_account': '다른 계정 추가',
+      'content.confirm_registration': '자동 출석 계정 등록',
       'content.no_available_games': '등록 가능한 게임이 없습니다.',
-      'content.register_other_games': '다른 게임도 등록하기',
       'content.partial_registration_failed':
         '일부 계정 등록에 실패했습니다. ({{successCount}}/{{totalCount}})',
-      'content.badge_assistant': '자동 출석',
       'content.registration_guide_desc':
-        '계정을 등록하면 브라우저가 열려있을 때 매일 자동으로 출석체크를 진행합니다.',
+        '브라우저가 열려있을 때 매일 자동으로 출석체크합니다.',
       'content.registration_safe_note':
-        '로그인 정보는 브라우저 로컬에만 안전하게 보관됩니다.',
+        '계정 정보는 브라우저에만 안전하게 저장됩니다.',
       'content.login_step_guide':
         '로그인 후 이 페이지로 돌아오면 게임 계정을 바로 등록할 수 있습니다.',
       'content.select_all': '전체 선택',
       'content.deselect_all': '선택 해제',
+      'content.select_characters': '출석할 캐릭터 선택',
       'content.registration_complete': '계정 등록 완료',
       'content.added_success_note':
         '확장 프로그램 아이콘을 클릭하여 언제든 출석 상태를 확인할 수 있습니다.',
@@ -121,41 +117,37 @@ export default {
       'game.honkai:star_rail': 'Honkai: Star Rail',
       'game.honkai3rd': 'Honkai Impact 3rd',
       'game.zzz': 'Zenless Zone Zero',
-      'content.checking_account_status': 'Checking account status.',
-      'content.need_login': 'Please use after logging in.',
+      'content.checking_account_status': 'Checking account status...',
+      'content.need_login': 'HoYoLAB Login Required',
       'content.need_login_to_register':
-        'Click the profile button at the top right of the screen to log in.',
-      'content.already_exist_account':
-        '<b>{{email}}</b> account is already registered.',
-      'content.check_automatically_in_browser':
-        'Checks are performed automatically in the browser.',
+        'Please log in from the top-right profile and revisit.',
       'content.email_added': '<b>{{email}}</b> account has been added.',
       'content.confirm_add_email':
         'Do you want to register the <b>{{email}}</b> account?',
-      'content.not_supported_game': 'This game is not yet supported.😥',
+      'content.not_supported_game': 'This game is not yet supported.',
+      'content.supported_games_desc':
+        'Supports check-in for Genshin Impact, Honkai: Star Rail, Honkai Impact 3rd, and Zenless Zone Zero.',
       'content.select_game_accounts':
         'Select game accounts for <b>{{email}}</b>.',
       'content.already_registered': 'Registered',
       'content.all_accounts_registered':
-        'All game accounts for the logged-in account are already registered.',
-      'content.accounts_added': '{{count}} account(s) have been added.',
+        'All game accounts are already registered.',
+      'content.accounts_added': '{{count}} account(s) registered.',
       'content.add_other_account': 'Add another account',
-      'content.confirm_registration':
-        'Would you like to register an account with Hoyoverse Check-in?',
+      'content.confirm_registration': 'Enable Auto Check-in',
       'content.no_available_games': 'No games available for registration.',
-      'content.register_other_games': 'Register other games',
       'content.partial_registration_failed':
         'Some accounts failed to register. ({{successCount}}/{{totalCount}})',
-      'content.badge_assistant': 'Auto Check-in',
       'content.registration_guide_desc':
-        'Register your account to enable automatic daily check-in whenever your browser is open.',
+        'Automatically checks in daily whenever the browser is open.',
       'content.registration_safe_note':
         'Credentials remain securely stored in your local browser only.',
       'content.login_step_guide':
         'After logging in, return to this page to register your game accounts.',
       'content.select_all': 'Select All',
       'content.deselect_all': 'Deselect All',
-      'content.registration_complete': 'Registration Complete',
+      'content.select_characters': 'Select Characters',
+      'content.registration_complete': 'Account Registered',
       'content.added_success_note':
         'Click the extension icon at any time to check check-in status.',
       'common.register_selected': 'Register Selected',
@@ -241,41 +233,37 @@ export default {
       'game.honkai:star_rail': '崩壊：スターレイル',
       'game.honkai3rd': '崩壊3rd',
       'game.zzz': 'ゼンレスゾーンゼロ',
-      'content.checking_account_status': 'アカウント状況を確認中です。',
-      'content.need_login': 'ログイン後にご利用ください。',
+      'content.checking_account_status': 'アカウント状況を確認中...',
+      'content.need_login': 'HoYoLABへのログインが必要です',
       'content.need_login_to_register':
-        '画面右上のプロフィールボタンをクリックしてログインしてください。',
-      'content.already_exist_account':
-        '<b>{{email}}</b> のアカウントはすでに登録されています。',
-      'content.check_automatically_in_browser':
-        'ブラウザで自動的にチェックします。',
+        '右上のプロフィールからログイン後、再度アクセスしてください。',
       'content.email_added': '<b>{{email}}</b> のアカウントが追加されました。',
       'content.confirm_add_email':
         '<b>{{email}}</b> のアカウントを登録しますか？',
-      'content.not_supported_game': 'まだサポートされていないゲームです。😥',
+      'content.not_supported_game': 'まだサポートされていないゲームです。',
+      'content.supported_games_desc':
+        '原神、崩壊：スターレイル、崩壊3rd、ゼンレスゾーンゼロのログインボーナスに対応しています。',
       'content.select_game_accounts':
         '<b>{{email}}</b>のゲームアカウントを選択してください。',
       'content.already_registered': '登録済み',
       'content.all_accounts_registered':
-        'ログイン中のアカウントのすべてのゲームアカウントはすでに登録されています。',
-      'content.accounts_added': '{{count}}つのアカウントが追加されました。',
+        'すべてのゲームアカウントが既に登録されています。',
+      'content.accounts_added': '{{count}}個のアカウントが登録されました。',
       'content.add_other_account': '別のアカウントを追加',
-      'content.confirm_registration':
-        'Hoyoverse Check-inにアカウントを登録しますか？',
+      'content.confirm_registration': '自動ログインボーナス登録',
       'content.no_available_games': '登録可能なゲームがありません。',
-      'content.register_other_games': '他のゲームも登録する',
       'content.partial_registration_failed':
         '一部のアカウント登録に失敗しました。({{successCount}}/{{totalCount}})',
-      'content.badge_assistant': '自動チェックイン',
       'content.registration_guide_desc':
-        'アカウントを登録すると、ブラウザを開いている間に毎日自動でチェックインが行われます。',
+        'ブラウザ起動時に毎日自動でログインボーナスを受け取ります。',
       'content.registration_safe_note':
         'ログイン情報はブラウザのローカルにのみ安全に保存されます。',
       'content.login_step_guide':
         'ログイン後、このページに戻るとゲームアカウントを登録できます。',
       'content.select_all': 'すべて選択',
       'content.deselect_all': '選択解除',
-      'content.registration_complete': '登録完了',
+      'content.select_characters': 'キャラクター選択',
+      'content.registration_complete': 'アカウント登録完了',
       'content.added_success_note':
         '拡張機能アイコンをクリックすると、いつでもチェックイン状況を確認できます。',
       'common.register_selected': '選択を登録',
@@ -357,35 +345,34 @@ export default {
       'game.honkai:star_rail': '崩坏：星穹铁道',
       'game.honkai3rd': 'Honkai Impact 3rd',
       'game.zzz': '絕區零',
-      'content.checking_account_status': '正在检查账户状态。',
-      'content.need_login': '请登录后使用。',
+      'content.checking_account_status': '正在检查账户状态...',
+      'content.need_login': '需要登录 HoYoLAB',
       'content.need_login_to_register':
-        '请点击屏幕右上角的个人资料按钮进行登录。',
-      'content.already_exist_account': '<b>{{email}}</b> 账户已存在。',
-      'content.check_automatically_in_browser': '浏览器会自动签到。',
+        '请点击右上角头像登录后重新访问。',
       'content.email_added': '已添加 <b>{{email}}</b> 账户。',
       'content.confirm_add_email': '您确定要注册 <b>{{email}}</b> 账户吗？',
-      'content.not_supported_game': '我们尚未支持这款游戏。😥',
+      'content.not_supported_game': '尚未支持此游戏。',
+      'content.supported_games_desc':
+        '支持原神、崩坏：星穹铁道、崩坏3、绝区零的签到。',
       'content.select_game_accounts': '请选择<b>{{email}}</b>的游戏账户。',
       'content.already_registered': '已注册',
-      'content.all_accounts_registered': '已登录账户的所有游戏账户均已注册。',
-      'content.accounts_added': '已添加{{count}}个账户。',
+      'content.all_accounts_registered': '所有游戏账户均已完成注册。',
+      'content.accounts_added': '已注册 {{count}} 个账户。',
       'content.add_other_account': '添加其他账户',
-      'content.confirm_registration': '您要在Hoyoverse Check-in中注册账户吗？',
+      'content.confirm_registration': '启用自动签到',
       'content.no_available_games': '没有可注册的游戏。',
-      'content.register_other_games': '注册其他游戏',
       'content.partial_registration_failed':
         '部分账户注册失败。({{successCount}}/{{totalCount}})',
-      'content.badge_assistant': '自动签到',
       'content.registration_guide_desc':
-        '注册账户后，只要浏览器处于运行状态，每天都会自动进行签到。',
+        '浏览器开启时将每天自动完成签到。',
       'content.registration_safe_note':
-        '登录凭证仅安全保存在您的本地浏览器中。',
+        '登录信息仅安全保存在本地浏览器中。',
       'content.login_step_guide':
-        '登录后返回此页面，即可直接注册您的游戏账户。',
+        '登录后返回此页面即可注册游戏账户。',
       'content.select_all': '全选',
       'content.deselect_all': '取消全选',
-      'content.registration_complete': '注册完成',
+      'content.select_characters': '选择签到角色',
+      'content.registration_complete': '账户注册完成',
       'content.added_success_note': '随时点击扩展程序图标，即可查看签到状态。',
       'common.register_selected': '注册所选',
       'common.account_registration': '注册账户',

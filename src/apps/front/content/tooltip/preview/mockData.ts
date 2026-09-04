@@ -1,5 +1,6 @@
 import { GameRoleType } from '@src/types';
 import { GameId } from '@src/shared/constants/game';
+import { gameIdToActId } from '@src/shared/utils/gameMapping';
 
 export const mockEmail = 'traveler@hoyoverse.com';
 export const mockLtuid = '100088888';
@@ -45,3 +46,13 @@ export const mockGameRoles: GameRoleType[] = [
 
 // 원신은 이미 등록된 것으로 시뮬레이션
 export const mockRegisteredKeys = new Set([`e202102251931481_${mockLtuid}`]);
+
+// 모든 계정이 등록된 상태 시뮬레이션
+export const mockAllRegisteredKeys = new Set(
+  mockGameRoles
+    .map((role) => {
+      const actId = gameIdToActId(role.gameId);
+      return actId ? `${actId}_${mockLtuid}` : null;
+    })
+    .filter((key): key is string => !!key),
+);

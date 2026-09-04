@@ -32,7 +32,7 @@ export function TooltipCardContainer({
   }, [resetKey]);
 
   return (
-    <div className="isolate relative flex flex-col rounded-xl border border-slate-800 bg-slate-900/90 shadow-lg overflow-hidden transition-all hover:border-slate-700">
+    <div className="relative isolate flex flex-col overflow-hidden rounded-xl border border-slate-800 bg-slate-900/90 shadow-lg transition-all hover:border-slate-700">
       {/* Card Header */}
       <div className="flex items-center justify-between border-b border-slate-800 bg-slate-950/60 px-4 py-2.5">
         <div className="flex items-center gap-2">
@@ -50,7 +50,7 @@ export function TooltipCardContainer({
             <button
               type="button"
               onClick={onFocus}
-              className="p-1 rounded text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+              className="rounded p-1 text-slate-400 transition-colors hover:bg-slate-800 hover:text-white"
               title="포커스 모드 (전체 화면)"
             >
               <Maximize2 size={13} />
@@ -59,23 +59,30 @@ export function TooltipCardContainer({
           <button
             type="button"
             onClick={() => setIsOpen((prev) => !prev)}
-            className="p-1 rounded text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+            className="rounded p-1 text-slate-400 transition-colors hover:bg-slate-800 hover:text-white"
             title={isOpen ? '팝업 숨기기' : '팝업 표시'}
           >
-            {isOpen ? <Eye size={13} /> : <EyeOff size={13} className="text-amber-400" />}
+            {isOpen ? (
+              <Eye size={13} />
+            ) : (
+              <EyeOff size={13} className="text-amber-400" />
+            )}
           </button>
         </div>
       </div>
 
       {/* Card Description */}
-      <div className="px-4 py-1.5 bg-slate-950/30 border-b border-slate-800/40 text-[11px] text-slate-400">
+      <div className="border-b border-slate-800/40 bg-slate-950/30 px-4 py-1.5 text-[11px] text-slate-400">
         {description}
       </div>
 
       {/* Card Canvas Area: Centered, no awkward fixed clipping */}
-      <div className="relative flex-1 min-h-[460px] w-full p-4 sm:p-6 flex items-center justify-center select-none overflow-x-auto">
+      <div className="relative flex min-h-[460px] w-full flex-1 select-none items-center justify-center overflow-x-auto p-4 sm:p-6">
         {isOpen ? (
-          <ShadowDomWrapper mode="preview" className="w-full flex items-center justify-center">
+          <ShadowDomWrapper
+            mode="preview"
+            className="flex w-full items-center justify-center"
+          >
             <ToggleTooltipContext.Provider
               value={{
                 isTooltipShow: true,
@@ -90,17 +97,17 @@ export function TooltipCardContainer({
             </ToggleTooltipContext.Provider>
           </ShadowDomWrapper>
         ) : (
-          <div className="m-auto flex flex-col items-center justify-center gap-2 text-center p-6">
-            <div className="h-9 w-9 rounded-full bg-slate-800 flex items-center justify-center text-slate-400">
+          <div className="m-auto flex flex-col items-center justify-center gap-2 p-6 text-center">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-800 text-slate-400">
               <EyeOff size={16} />
             </div>
-            <p className="text-xs text-slate-400 font-medium">
+            <p className="text-xs font-medium text-slate-400">
               팝업이 닫혔습니다.
             </p>
             <button
               type="button"
               onClick={() => setIsOpen(true)}
-              className="inline-flex items-center gap-1.5 rounded-md bg-white px-3 py-1.5 text-xs font-semibold text-black hover:bg-slate-200 transition-colors shadow-sm"
+              className="inline-flex items-center gap-1.5 rounded-md bg-white px-3 py-1.5 text-xs font-semibold text-black shadow-sm transition-colors hover:bg-slate-200"
             >
               <RefreshCw size={12} />
               <span>다시 열기</span>
